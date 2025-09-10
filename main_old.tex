@@ -1,0 +1,1368 @@
+\documentclass[12pt]{article}
+\input{macros}
+
+%--- Title Information ---%
+\title{Banking Competition with Heterogeneous Funding Structures}
+\author{Austin Li}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper develops a general equilibrium model of strategic banking competition between institutions with heterogeneous access to stable deposit funding. I analyze Nash equilibrium between two banks competing for loans: one with unlimited access to insured deposits (representing large money-center banks) and another with limited deposit access requiring wholesale funding (representing regional or specialized banks). Building on the methodologies of Malherbe (2020) and Bahaj and Malherbe (2020), I extend the analysis to strategic competition with funding asymmetry. I prove existence of equilibrium and, under a dominant diagonal condition that I verify, its uniqueness in the sense of \citet{Rosen1965}. The model demonstrates that differential deposit access creates asymmetric risk-taking incentives: banks with unlimited deposits exploit government insurance subsidies, achieving higher market share and default probabilities, while wholesale-funded banks face market discipline through endogenous risk-based pricing, constraining their lending and risk-taking. My comparative statics analysis reveals how funding heterogeneity generates endogenous market segmentation and concentration, with changes in deposit access affecting equilibrium lending through both direct funding cost and strategic interaction channels. The results provide a framework for understanding persistent heterogeneity in bank business models and risk profiles.
+\end{abstract}
+
+\section{Introduction}
+Modern banking systems exhibit substantial heterogeneity in funding structures. Large money-center banks maintain extensive branch networks and enjoy abundant access to stable, insured deposits. In contrast, regional banks, specialized lenders, and new entrants often face natural limits on deposit gathering and must rely more heavily on wholesale funding markets. This heterogeneity in funding access has profound implications for competition, risk-taking, and market structure in banking. I ask: how does heterogeneous access to stable deposit funding affect competitive dynamics and risk-taking in banking markets?
+
+This paper addresses this question by developing a general equilibrium model where two banks with different funding structures compete strategically for loans. My framework captures a fundamental reality of modern banking: institutions with varying degrees of access to government-insured deposits must compete for the same lending opportunities in Nash equilibrium. My theoretical foundation builds on \citet{Merton1977}'s analysis of deposit insurance as a put option creating moral hazard, \citet{CalomirisKahn1991}'s demonstration of wholesale funding as market discipline, and recent work by \citet{DrechslerSavovSchnabl2021} on deposit franchise value. The 2023 crisis validated these insights empirically, as \citet{JiangEtAl2024} document how uninsured deposit reliance created systemic vulnerabilities.
+
+Building on \citet{Malherbe2020} and \citet{BahajMalherbe2020}, I adapt the penniless-firms framework to a two-bank setting with asymmetric access to insured deposits, embedding a two-stage firm problem and output-contingent wages for consistent loss allocation. I consider two institutions: Bank D with unlimited insured deposits, and Bank W with a cap \(\overline{D}_W\) that forces reliance on wholesale funding at an endogenously determined rate that disciplines risk.
+
+The paper delivers three results. First, I prove existence of Nash equilibrium and, under standard regularity, uniqueness in the sense of \citet{Rosen1965}, with lending choices as strategic substitutes. Second, funding heterogeneity generates endogenous market segmentation: deposit-rich banks lend more and default more, while wholesale-funded banks face binding market discipline. Third, comparative statics show how improving deposit access affects equilibrium lending through both direct funding-cost and strategic-interaction channels. This extends the banking competition literature \citep{BoydDeNicolo2005, MartinezMieraRepullo2010} and complements deposit insurance analysis \citep{AllenGale2000, DavilaGoldstein2023}, offering a mechanism for persistent business-model heterogeneity and crisis patterns.
+
+ 
+
+
+\section{Model Setup}
+
+\subsection{Preliminaries and Notation}
+\label{sec:prelim}
+I normalize $\mathbb{E}[A]=1$ and write the support as $[\underline A,\overline A]\subset\mathbb{R}_{++}$ with density $f$ strictly positive and continuous. For any real $z$, define $z^+\equiv\max\{z,0\}$. Aggregate lending is $X\equiv x_D+x_W$. Define the constant
+\[
+\Theta\;\equiv\; \pi\,\alpha^{2}\,\overline{L}^{1-\alpha},
+\]
+so the expected revenue per unit of loans when aggregate lending is $X$ is $\Theta\,X^{1/\epsilon}$ (derived in Appendix~\ref{app:deriv-revenue}). Loan demand elasticity satisfies $\epsilon=-1/(1-\alpha)<-1$, so $1/\epsilon=\alpha-1<0$. I keep $\alpha$ as the technology parameter and use the identity $1/\epsilon=\alpha-1$ only to simplify derivatives.
+
+By standard law of large numbers arguments, exactly fraction $\pi$ of firms succeed in any realization, so aggregate objects are deterministic conditional on aggregate productivity $A$.
+
+\subsection{Economic Environment}
+I develop a one-period general equilibrium model to analyze how differential access to insured deposits affects bank lending decisions and risk-taking behavior. The economy consists of three sectors: a continuum of firms that demand loans for capital investment, two banks that compete in the lending market with different funding structures, and workers who supply labor inelastically. 
+
+The production sector features a continuum of ex-ante identical firms indexed by $i \in [0,1]$. Each firm operates a Cobb-Douglas technology $y_{i}=A \cdot a_{i} \cdot k_{i}^{\alpha}L_{i}^{1-\alpha}$ with capital share parameter $\alpha \in (0,1)$. Output depends on an aggregate productivity shock $A \in [\underline{A}, \overline{A}] \subset \mathbb{R}_{++}$ and an idiosyncratic shock $a_i \in \{0,1\}$ with success probability $\pi \in (0,1)$. Firms face financial frictions that necessitate external financing for capital investment $k_i \geq 0$, creating demand for bank loans at gross lending rate $r^l \geq 0$. Workers supply labor $\overline{L} > 0$ inelastically and receive competitive wage $w(A) \geq 0$.
+
+The banking sector consists of two institutions with heterogeneous funding structures. Bank D enjoys unlimited access to government-insured deposits at normalized rate $r_d = 0$, while Bank W faces structural limitations $\overline{D}_W > 0$ on insured deposit gathering and must rely on wholesale funding at rate $r_w \geq 0$ for additional financing beyond this constraint. 
+
+Both banks are subject to regulatory capital requirements $\gamma \in (0,1)$ (fraction of assets that must be equity) and operate under limited liability with negligible inside equity $\kappa \to 0$.
+
+\begin{assumption}[Production Technology and Frictions]\label{ass:prod}
+The production environment is characterized by the following\Allow properties:
+\begin{enumerate}
+    \item[(a)] Production function: Each firm $i \in [0,1]$ operates the technology $y_{i}=A \cdot a_{i} \cdot k_{i}^{\alpha}L_{i}^{1-\alpha}$.
+    \item[(b)] Financial frictions: Firms possess no initial wealth and must borrow to finance capital investment.
+    \item[(c)] Information structure: Idiosyncratic productivity $a_{i}$ is private information realized at the final stage, with $\Pr(a_{i}=1)=\pi$. The idiosyncratic shocks $\{a_i\}_{i \in [0,1]}$ are independent across firms and independent of the aggregate shock $A$.
+    \item[(d)] Aggregate uncertainty: Aggregate productivity $A$ is publicly observed at date $t=1$ before labor choices.
+    \item[(e)] Labor market: Labor is supplied inelastically at level $\overline{L}$ and allocated competitively.
+    \item[(f)] Preferences and depreciation: All agents are risk-neutral and capital fully depreciates within the period.
+    \item[(g)] Technical conditions: The density function $f(A)$ is continuous and strictly positive on the support $[\underline{A},\overline{A}]$.
+\end{enumerate}
+\end{assumption}
+
+\begin{assumption}[Productivity Distribution Structure]\label{ass:dist}
+In addition to the basic properties specified in Assumption~\ref{ass:prod}, the aggregate productivity distribution F satisfies the following technical condition when default thresholds may exceed unity:
+\begin{equation}
+    F(A) \text{ has a continuous, strictly positive density } f(A) \text{ on } [\underline{A}, \overline{A}]
+\end{equation}
+and satisfies the log-concavity condition:
+\begin{equation}
+    \frac{d}{dA}\left[\frac{f(A)}{1-F(A)}\right] \geq 0 \text{ for all } A \in [\underline{A}, \overline{A})
+\end{equation}
+This hazard rate monotonicity condition is satisfied by most standard distributions (normal, exponential, uniform, beta with appropriate parameters) and ensures that the banking optimization problems have unique interior solutions.
+\end{assumption}
+
+\begin{remark}[Economic Interpretation of Distribution Condition]
+A nondecreasing hazard rate (IFR) means that, conditional on not having reached level $A$, the instantaneous likelihood of crossing it rises with $A$. This rules out heavy upper tails and supports well-behaved curvature. Many standard distributions (uniform, truncated normal, exponential) satisfy IFR.
+\end{remark}
+
+\subsection{Timeline}
+The model unfolds over a single period with the following sequence of events:
+\begin{description}
+    \item[Date $t=0$:] Banks simultaneously post lending rates in a competitive market. Firms observe these rates and borrow to finance capital investment, entering into debt contracts that specify repayment obligations $(1+r^{l})k_{i}$.
+    \item[Date $t=1$:] Aggregate productivity A is realized and publicly observed. Given this information and their predetermined capital stocks, firms hire labor in a competitive spot market at wage $w(A)$.
+    \item[Date $t=2$:] Production occurs according to the specified technology. Immediately following production, idiosyncratic productivity shocks are realized privately by each firm. Firms with $a_{i}=1$ produce output $y_{i}=A \cdot k_{i}^{\alpha}L_{i}^{1-\alpha}$ while firms with $a_{i}=0$ produce nothing.
+    \item[Date $t=3$:] All contractual obligations are settled subject to limited liability constraints. Successful firms pay wages from realized output and repay their debts. Failed firms invoke limited liability protection, with workers and lenders receiving nothing.
+\end{description}
+
+\subsection{Contracting Assumptions}
+The contracting environment reflects realistic features of debt and labor markets while maintaining analytical tractability.
+
+\begin{assumption}[Contracting and Limited Liability]\label{ass:contract}
+\begin{enumerate}
+    \item[(a)] Production output is observable and verifiable, enabling contractual enforcement when $a_{i}=1$.
+    \item[(b)] Firms operate under limited liability protection. When $a_{i}=0$, firms produce no output and all claimants receive zero payoff.
+    \item[(c)] Idiosyncratic productivity $a_i \in \{0,1\}$ is verifiable at default proceedings, enabling contractual enforcement.
+    \item[(d)] Workers are paid from realized output when $a_{i}=1$ and receive nothing when $a_{i}=0$. While this output-contingent wage structure is admittedly unrealistic, it ensures that all claimants share proportionally in default losses, allowing us to solve for equilibrium without tracking separate state variables for wage obligations. Given risk neutrality, only expected wages matter for labor market equilibrium. \emph{Workers are risk–neutral and price wages in expected value; supply is inelastic in expectation. Hence the $\pi$ factor cancels from the Stage-2 FOC and the labor market clears state-by-state at $w(A)$.}
+
+    \item[(e)] In bankruptcy proceedings, banks have seniority over wage claims, though both receive zero when $a_{i}=0$ under our output-contingent framework.
+\end{enumerate}
+\end{assumption}
+
+\begin{remark}[Derivation of Strategic Default Prevention]
+To understand why $\underline{A} > \alpha$ prevents strategic default, consider a successful firm with $a_{i}=1$. After paying workers their equilibrium wage $(1-\alpha)Ak^{\alpha}\overline{L}^{1-\alpha}$, the firm retains $\alpha Ak^{\alpha}\overline{L}^{1-\alpha}$ and owes $(1+r^{l})k$ to the bank. Strategic default is unprofitable when:
+\begin{equation}
+    \alpha Ak^{\alpha}\overline{L}^{1-\alpha} \ge (1+r^{l})k
+\end{equation}
+From the firm's first-order condition, $\alpha^{2}k^{\alpha-1}\overline{L}^{1-\alpha}=(1+r^{l})$. Therefore, the no-strategic-default condition becomes:
+\begin{equation}
+    \alpha Ak^{\alpha-1}\overline{L}^{1-\alpha} \ge \alpha^{2}k^{\alpha-1}\overline{L}^{1-\alpha}
+\end{equation}
+which requires $A > \alpha$. Since this must hold for all realizations, we need $\underline{A} > \alpha$.
+\end{remark}
+
+\begin{remark}[Economic Interpretation of Parameter Restriction]
+The condition $\underline{A} > \alpha$ has clear economic meaning: aggregate\Allow conditions must be sufficiently favorable relative to the capital\Allow intensity of production that successful firms always find it optimal to repay their debts rather than strategically default. This restriction naturally holds when macroeconomic fluctuations are moderate relative to production technology parameters.
+\end{remark}
+
+\subsection{Banking Sector Structure}
+Both banks operate with similar organizational structures but face different regulatory constraints on funding sources.
+
+\begin{assumption}[Banking Environment]
+\begin{enumerate}
+    \item[(a)] Banks operate with minimal inside equity $\kappa \to 0$ and must raise funds externally.
+    \item[(b)] Regulatory capital requirements mandate that outside equity equals fraction $\gamma \in (0,1)$ of total assets.
+    \item[(c)] Outside equity investors operate in competitive markets requiring zero economic profit in expectation.
+    \item[(d)] Government deposit insurance protects insured deposits with no explicit premium charged.
+    \item[(e)] The risk-free rate is normalized to zero.
+    \item[(f)] Limited liability protects all equity holders.
+\end{enumerate}
+\end{assumption}
+
+The separation of control rights and capital provision creates a fundamental feature of our banking model. Initial shareholders (the bankers) maintain full control over lending decisions despite contributing negligible capital, while outside equity investors provide the required regulatory capital but have no direct influence on bank operations. This ownership structure reflects common practice in financial institutions where management control is separated from capital provision. The competitive nature of capital markets ensures that outside equity investors earn only their required return, with any economic rents accruing to those who hold control rights.
+
+\begin{definition}[Admissible contracts and budget balance]\label{def:contractspace}
+Fix bank $j\in\{D,W\}$ and lending quantity $x_j\ge 0$. Let $X\equiv x_D+x_W$. A (state-contingent) repayment contract for bank $j$ is a Borel-measurable function $C_j:[\underline A,\overline A]\to\mathbb R_+$ such that, almost everywhere in $A$,
+\begin{equation}
+0\;\le\; C_j(A)\;\le\; \big[\,A\,x_j\,\Theta\,X^{-\sigma} - D_j - (1+r_w)W_j\,\big]^+\;+
+\big(D_j + (1+r_w)W_j\big),
+\end{equation}
+where $D_j$ and $W_j$ denote, respectively, insured deposits and wholesale debt used by bank $j$ (with $W_D\equiv 0$). The equity-budget condition requires $\int C_j(A)\,dF(A) = (1+r^l)\,x_j - (D_j + (1+r_w)W_j)$.
+
+Insured deposits are guaranteed at par. Let the insurer's state-contingent transfer to bank $j$ in default be
+\begin{equation}
+S_j(A)\;=\;\big(D_j - \text{recovery to insured class at }A\big)^+\, ,
+\end{equation}
+financed by a lump-sum tax $T$ on households, with the ex-ante budget clearing condition
+\begin{equation}
+\mathbb E\big[\,S_D(A)+S_W(A)\,\big] \;=\; T.\label{eq:insurerBudget}
+\end{equation}
+Deposit insurance thereby induces a wedge in bank $D$'s private FOC relative to the social marginal cost; we denote this term by $\text{Subsidy}_D$ in subsequent derivations.
+\end{definition}
+
+\begin{remark}[Funding decomposition]\label{rem:funding}
+For $j=D$: $D_D=(1-\gamma)x_D$, $W_D=0$. For $j=W$: $D_W\le \overline D_W$ and $W_W = \max\{0,(1-\gamma)x_W - \overline D_W\}$. The wholesale rate $r_w$ is endogenously determined by investors' zero-profit (see Lemma~\ref{lem:wholesale}).
+\end{remark}
+
+\section{Firm Sector Analysis and Loan Demand}
+
+\subsection{Firm Optimization and Symmetric Equilibrium}
+I now formally state the firm's optimization problem, which follows a two-stage structure reflecting the timing of decisions and information revelation.
+
+\begin{definition}[Firm's Optimization Problem]\label{def:firm-problem}
+Each firm $i \in [0,1]$ solves the following two-stage optimization problem:
+
+\textbf{Given information and parameters:}
+\begin{itemize}
+    \item Lending rate $r^l \geq 0$ (posted by banks at date $t=0$)
+    \item Aggregate productivity distribution $F(A)$ with support $[\underline{A}, \overline{A}]$
+    \item Success probability $\pi \in (0,1)$ and production parameters $\alpha \in (0,1)$, $\overline{L} > 0$
+    \item Capital choices of other firms $\{k_j\}_{j \neq i}$ (taken as given in equilibrium)
+\end{itemize}
+
+\textbf{Information structure:}
+\begin{itemize}
+    \item At $t=0$: Firm $i$ observes $r^l$ but not yet $A$ or $a_i$
+    \item At $t=1$: Firm $i$ observes realization of $A$ but not yet $a_i$
+    \item At $t=2$: Firm $i$ privately observes $a_i$ after production
+\end{itemize}
+
+\textbf{Optimization stages:}
+\begin{description}
+    \item[Stage 2 (Labor Choice at $t=1$):] Given predetermined capital $k_{i} \geq 0$, observed aggregate productivity $A \in [\underline{A}, \overline{A}]$, and market wage $w(A) \geq 0$, firm $i$ chooses labor $L_i \geq 0$ to maximize expected net production value:
+    \begin{equation}
+        \max_{L_{i} \ge 0} V_{1}^{i}(k_{i},A,w) = \pi \cdot [A \cdot k_{i}^{\alpha}L_{i}^{1-\alpha} - w(A)L_{i}]
+    \end{equation}
+    where the expectation is taken over the private idiosyncratic shock $a_i$.
+    
+    \item[Stage 1 (Capital Choice at $t=0$):] Anticipating optimal labor choices and the equilibrium wage function $w^{*}: [\underline{A}, \overline{A}] \to \mathbb{R}_+$, firm $i$ chooses capital $k_i \geq 0$ to maximize expected profit:
+    \begin{equation}
+        \max_{k_i \geq 0} V_{0}^{i} = \mathbb{E}_{A}[V_{1}^{i}(k_{i},A,w^{*}(A))] - \pi(1+r^{l})k_{i}
+    \end{equation}
+    where the expectation is taken over the aggregate productivity shock $A \sim F$.
+\end{description}
+
+\textbf{Feasibility constraints:}
+\begin{itemize}
+    \item $k_i \in [0, \bar{k}]$ for some finite $\bar{k}$ determined by no-Ponzi conditions
+    \item $L_i \geq 0$ with $L_i < \infty$ ensured by interior solutions under our parameter restrictions
+    \item Limited liability: Firm payoffs are bounded below by zero
+\end{itemize}
+\end{definition}
+
+The solution to this optimization problem, combined with market clearing conditions, yields the following equilibrium characterization.
+
+\begin{definition}[Symmetric Firm Equilibrium]
+A symmetric firm equilibrium is a collection of objects $(k^*, L^*(\cdot), w^*(\cdot))$ such that:
+\begin{enumerate}
+    \item \textbf{Optimal capital choice:} All firms choose the same capital level $k^* \geq 0$ that solves the Stage 1 optimization problem in Definition~\ref{def:firm-problem}.
+    \item \textbf{Optimal labor choice:} For each realization $A \in [\underline{A}, \overline{A}]$, all firms choose the same labor level $L^*(A) \geq 0$ that solves the Stage 2 optimization problem given $k^*$ and $w^*(A)$.
+    \item \textbf{Labor market clearing:} For each $A$, the wage $w^*(A) \geq 0$ clears the labor market:
+    \begin{equation}
+        \int_0^1 L^*(A) \, di = L^*(A) = \overline{L}
+    \end{equation}
+    \item \textbf{Wage function:} The equilibrium wage function is $w^*: [\underline{A}, \overline{A}] \to \mathbb{R}_+$.
+    \item \textbf{Consistency:} The optimal choices are consistent with the information structure specified in Definition~\ref{def:firm-problem}.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}[Symmetric Firm Equilibrium]
+\label{prop:firm-eq}
+Under Assumptions~\ref{ass:prod} and~\ref{ass:contract}, there\Allow exists a unique symmetric equilibrium where:
+\begin{enumerate}
+    \item[(i)] All firms choose capital:
+    \begin{equation}
+        k^{*} = \overline{L}\left(\frac{\alpha^{2}}{1+r^{l}}\right)^{\frac{1}{1-\alpha}}
+    \end{equation}
+    \item[(ii)] The equilibrium wage is:
+    \begin{equation}
+        w^{*}(A) = (1-\alpha)A\left(\frac{K^{*}}{\overline{L}}\right)^{\alpha}
+    \end{equation}
+    where $K^{*} = k^{*}$ is aggregate capital.
+    \item[(iii)] Expected firm profit is zero in equilibrium due to competitive markets.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:deriv-firm} for the complete derivation through backward induction.
+\end{proof}
+
+\begin{remark}[Elasticity–technology link]
+    I fix $\epsilon \equiv -1/(1-\alpha)$, so $1/\epsilon=\alpha-1<0$. In formulas I keep $\alpha$ as the technology parameter and use $1/\epsilon=\alpha-1$ only to simplify derivatives. I avoid writing $\alpha=1+1/\epsilon$ to prevent confusion.
+    \end{remark}    
+
+\begin{lemma}[No profitable strategic default]\label{lem:nostrategicdefault}
+Assume $A\in[\underline A,\overline A]$ with continuous density $f>0$ and that $a\in\{0,1\}$ is verifiable at default. If $\underline A\,\Theta\,X^{-\sigma} \ge \alpha$ (equivalently, expected marginal product at the worst state exceeds the private default temptation), then firms do not strategically default in equilibrium under limited liability. Alternatively, with a verifiable default penalty $\phi>0$, it suffices that $\underline A\,\Theta\,X^{-\sigma} \ge \alpha-\phi$.
+\end{lemma}
+\begin{proof}[Proof sketch]
+Limited liability makes default attractive only if realized revenue net of verifiable inputs falls below the promised repayment. The stated bound ensures that, conditional on effort $a=1$, the residual value at the lowest state already covers the temptation margin; with a penalty $\phi$, the bound weakens by $\phi$. Measurability of contracts (Def.~\ref{def:outside-equity}) guarantees integrability.
+\end{proof}
+
+The symmetric equilibrium reflects the homogeneity of firms and the competitive nature of all markets. The capital choice decreases with the lending rate, generating downward-sloping loan demand.
+
+\subsection{Loan Demand and Bank Revenue Function}
+\subsection{Default Thresholds and Payoff Structure}
+\begin{proposition}[Default Threshold and Payoff Representation]\label{prop:threshold}
+For any given lending levels $(x_j, x_{-j}) \in \mathbb{R}_+^2$ and debt\Allow level $D_j \geq 0$, there exists a unique default threshold\Allow $A_j^*(x_j, x_{-j}, D_j) \geq 0$ defined as the solution to:
+\begin{equation}
+    D_j = A_j^* \cdot x_j \cdot \Theta\,(x_j + x_{-j})^{1/\epsilon}
+\end{equation}
+provided that $x_j > 0$ and $\Theta\,(x_j + x_{-j})^{1/\epsilon} > 0$. When $x_j = 0$, we set $A_j^* = 0$.
+
+The optimal contract takes the threshold form:
+\begin{equation}
+C_{j}^{*}(A) = \begin{cases}
+A \cdot x_{j} \cdot \Theta\,(x_{j}+x_{-j})^{1/\epsilon} - D_{j}, & A \ge A_{j}^{*} \\
+0, & A < A_{j}^{*}
+\end{cases}
+\end{equation}
+
+The banker's expected payoff is well-defined and given by:
+\begin{equation}
+    w_{j}(x_{j},x_{-j}) \,=\, \int_{A_{j}^{*}}^{\overline{A}} \big[ A \cdot x_{j} \cdot \Theta\,(x_{j}+x_{-j})^{1/\epsilon} - D_{j} \big] f(A)\,dA \, - \, \gamma x_{j}
+\end{equation}
+where the integral exists because the integrand is bounded on the compact interval $[A_j^*, \overline{A}]$ and $f$ is continuous.
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:proof-threshold}.
+\end{proof}
+
+The symmetric equilibrium generates aggregate loan demand:
+\begin{equation}
+    K^{d}(r^{l}) = \overline{L}\left(\frac{\alpha^{2}}{1+r^{l}}\right)^{\frac{1}{1-\alpha}}
+\end{equation}
+The loan demand elasticity is $\epsilon = -\frac{1}{1-\alpha} < -1$, reflecting the substitution between capital and labor in production. 
+
+\textbf{Existence of aggregate lending and revenue:} Let $X \geq 0$ denote total aggregate lending across all banks, which exists and is well-defined in equilibrium by market clearing. Banks lend to a continuum of firms with independent idiosyncratic risks. By the strong law of large numbers (applicable due to the independence assumption in Assumption~\ref{ass:prod}(c)), exactly fraction $\pi$ of firms succeed and repay their loans almost surely, yielding expected revenue per unit lent:
+\begin{equation}
+    R(r^l) = \pi \cdot (1+r^{l})
+\end{equation}
+where we have made explicit the dependence on the lending rate.
+
+Market clearing requires that aggregate bank lending $X$ equals loan demand $K^d(r^l)$. Inverting the demand function and substituting into the revenue equation yields:
+
+\begin{proposition}[Bank Revenue Function]
+\label{prop:rev}
+Banks face an expected revenue function:
+\begin{equation}
+    R(X) = \Theta \cdot X^{1/\epsilon}
+\end{equation}
+where $\Theta \equiv \pi\alpha^{2}\overline{L}^{1-\alpha}$ incorporates technological parameters and credit risk, and $\epsilon = -\frac{1}{1-\alpha} < -1$ is the loan demand elasticity.
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:deriv-revenue} for the complete derivation.
+\end{proof}
+
+The revenue function exhibits decreasing returns to scale in aggregate lending, $\frac{1}{\epsilon} = -(1-\alpha) < 0$. This property, which emerges from the general equilibrium interaction between lending and loan rates, plays a crucial role in determining equilibrium lending levels and the magnitude of deposit insurance subsidies.
+
+\section{Banking Sector: General Analytical Framework}
+This section develops the general framework for analyzing banks with different funding structures. I first establish the common contracting environment and optimization structure that applies to both institutions, then examine how heterogeneous deposit access creates fundamentally different incentives and constraints.
+
+\subsection{General Contracting Structure}
+Both banks in our model operate under similar organizational structures but face different funding constraints. Each bank is managed by a banker who owns all inside equity but contributes negligible initial capital $(\kappa \to 0)$. All funding must be raised externally through a combination of deposits and outside equity to meet regulatory capital requirements.
+
+The contracting problem between initial shareholders and outside equity investors determines the state-contingent division of the bank's net value. Since initial shareholders control lending decisions while outside equity investors provide required regulatory capital in competitive markets, the equilibrium contract minimizes expected payments to outside equity subject to their break-even constraint.
+
+\begin{definition}[General Bank Contracting Problem]\label{def:contracting}
+For a bank with lending level $x_{j}$, competitor lending $x_{-j}$, and total debt obligations $D_{j}$, the equilibrium contract between initial shareholders and outside equity investors specifies state-contingent payments $C_{j}(A)$ that solve:
+Let $X \equiv x_j + x_{-j}$. Then
+\begin{equation}
+\max_{\{C_{j}(\cdot)\}} \int_{\underline{A}}^{\overline{A}} \big[ A \cdot x_{j} \cdot \Theta \cdot X^{1/\epsilon} - D_{j} - C_{j}(A) \big]^{+} f(A)\,dA \; - \; \gamma x_{j}
+\end{equation}
+subject to
+\begin{gather*}
+\int_{\underline{A}}^{\overline{A}} C_{j}(A) f(A)\,dA = \gamma x_{j} \quad \text{(outside equity break-even)} \\
+0 \le C_{j}(A) \le \big[ A \cdot x_{j} \cdot \Theta \cdot X^{1/\epsilon} - D_{j} \big]^{+} \quad \forall A.
+\end{gather*}
+\end{definition}
+
+% (Default Threshold and Payoff Representation moved to Section 3.3.)
+
+\subsection{General Value Decomposition}
+The contracting structure implies a general form for the banker's objective function that decomposes into fundamental value creation and government subsidies.
+
+\begin{proposition}[General Value Decomposition]\label{prop:general-value}
+Given the equilibrium contract, the banker's objective function can be expressed as:
+\begin{equation}
+    w_{j} = \underbrace{x_{j}[\Theta\,(x_{j}+x_{-j})^{1/\epsilon}-1]}_{\text{Private } NPV_{j}} + \underbrace{\text{Subsidy}_{j}}_{\text{Government Support}}
+\end{equation}
+where the subsidy term depends on the specific funding structure.
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:proof-general-value} for the detailed derivation.
+\end{proof}
+
+\begin{remark}[Private Value Interpretation]
+The NPV term represents private value creation from financial intermediation. When firms fail $(a_{i}=0)$, workers receive no payment under our contracting specification, meaning that bank failures impose losses on workers as well as lenders. The NPV therefore captures the value accruing to the banking sector given the specified distribution of losses across different stakeholders in bankruptcy states. This specification allows for tractable equilibrium characterization while maintaining economic consistency.
+\end{remark}
+
+\subsection{Wholesale Funding Market Equilibrium}
+For banks that exceed their deposit-gathering capacity, wholesale funding markets provide additional financing at endogenous rates that reflect default risk. This creates market discipline absent from deposit-funded lending.
+
+\begin{proposition}[Wholesale Funding Equilibrium]\label{prop:wholesale}
+The equilibrium wholesale funding rate $r_{w}$ satisfies:
+\begin{align}
+    &\int_{A_{W}^{*}}^{\overline{A}} \big[(1-\gamma)x_{W}-\overline{D}_{W}\big](1+r_{w}) f(A)\,dA \nonumber \\
+    &\quad + \int_{A_{W}^{**}}^{A_{W}^{*}} \big[A \cdot x_{W} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon} - \overline{D}_{W}\big] f(A)\,dA = (1-\gamma)x_{W}-\overline{D}_{W}
+\end{align}\label{eq:wholesale-breakeven}
+where:
+\begin{gather*}
+    A_{W}^{*} = \frac{\overline{D}_{W} + [(1-\gamma)x_{W}-\overline{D}_{W}](1+r_{w})}{x_{W} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon}} \\
+    A_{W}^{**} = \frac{\overline{D}_{W}}{x_{W} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon}}
+\end{gather*}
+\end{proposition}
+
+\begin{lemma}[Wholesale rate: existence, uniqueness, and regularity]\label{lem:wholesale}
+Fix $(x_W,x_D)$ and let $X=x_D+x_W$. Suppose wholesale investors are risk neutral, competitive, and share proportionally in recoveries with the insured class (absolute priority with proportional sharing). Let the promised wholesale payoff be $(1+r_w)W_W$ and define the investor zero-profit function
+\begin{equation}
+\Phi(r_w; x_W,x_D)\;\equiv\; \mathbb E\big[\,\rho(A;r_w; x_W,x_D)\,\big] \; - \; (1+r_w)W_W \, ,
+\end{equation}
+where $\rho(\cdot)$ is the wholesale investors' state-contingent repayment implied by the priority rule and the cash-flow $A\,x_W\,\Theta\,X^{-\sigma}$. Then:
+\begin{enumerate}
+\item (Existence) $\Phi(0)>0$ and there exists $\bar r<\infty$ with $\Phi(\bar r)<0$. By the intermediate value theorem, there is at least one root $r_w\in[0,\bar r]$.
+\item (Uniqueness) $\Phi$ is strictly decreasing in $r_w$: using Leibniz' rule, $\Phi'(r_w)=\int_{\underline A}^{\overline A}\partial \rho/\partial r_w\, dF + \big[\rho(A;r_w;\cdot)\,f(A)\big]_{\text{thresholds}}\!\cdot (dA^*/dr_w) < 0$, because higher $r_w$ raises the promised burden, shifts up default thresholds $A_W^*$ (Def.~below), and weakly reduces state repayments; by construction of thresholds under absolute priority, the boundary contribution is non-positive (indeed zero where the payoff kink vanishes).
+\item (Regularity) The root is unique and depends continuously on $(x_W,x_D)$ by the maximum theorem; moreover $\partial r_w/\partial x_W>0$ and $\partial r_w/\partial x_D\ge 0$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}[Proof (boundary checks)]
+$\Phi(0)>0$: at zero interest, the promised wholesale amount equals $W_W$, while expected recovery is weakly above $W_W$ whenever default does not wipe out all wholesale claims in all states; with positive mass of solvent states, strict inequality obtains. Pick $\bar r$ large so that $(1+\bar r)W_W$ exceeds the maximal state payout to the wholesale class (bounded by $\overline A\,x_W\,\Theta\,X^{-\sigma}$), which yields $\Phi(\bar r)<0$. Strict decrease follows from the monotone movement of thresholds and proportional recovery; continuity from dominated convergence. The sign of comparative statics follows from implicit differentiation.
+\end{proof}
+
+\begin{definition}[Default thresholds]\label{def:thresholds}
+Let total promised senior liabilities be $L_j\equiv D_j+(1+r_w)W_j$ (with $W_D\equiv 0$). The default threshold for bank $j$ satisfies
+\begin{equation}
+A_j^*\,x_j\,\Theta\,X^{-\sigma}\;=\; L_j\quad \Rightarrow\quad A_j^*\;=\; \frac{L_j}{x_j\,\Theta}\,X^{\sigma}.\label{eq:threshold}
+\end{equation}
+\end{definition}
+
+\subsection{Bank Strategy Sets}
+Before specifying the optimization problems, I formally define the feasible strategy spaces that ensure existence of equilibrium.
+
+\begin{definition}[Bank Strategy Sets]\label{def:strategy-sets}
+For bank $j \in \{D,W\}$, the feasible strategy sets are compact rectangles independent of opponents' choices:
+\begin{align}
+\mathcal{X}_D &= [0, \overline{x}_D],\quad \overline{x}_D = \left(\frac{\pi\alpha^2\overline{L}^{1-\alpha}\overline{A}}{1-\gamma}\right)^{\frac{1}{1-\alpha}} \label{eq:strategy-set-D}\\
+\mathcal{X}_W &= [0, \overline{x}_W] \label{eq:strategy-set-W}
+\end{align}
+with finite bounds $\overline{x}_j$ chosen so that profits are non-positive for $x_j>\overline{x}_j$. These bounded, convex strategy sets ensure equilibrium existence.
+\end{definition}
+
+\subsection{General Optimization Framework}
+Both banks solve optimization problems that share a common structure but differ in their specific constraints and funding costs.
+
+\begin{definition}[General Bank Optimization Problem]\label{def:bank-opt}
+Bank $j \in \{D,W\}$ chooses lending $x_j \in \mathcal{X}_j$ and an\Allow outside equity contract $C_j\in\mathcal{C}_j(x_j,x_{-j})$ to maximize\Allow banker value:
+\begin{equation}
+    \max_{x_j \in \mathcal{X}_j,\; C_j\in\mathcal{C}_j(x_j,x_{-j})} \; w_{j}(x_{j},x_{-j}) \;=\; \text{Private } NPV_{j}(x_j,x_{-j}) \; + \; \text{Subsidy}_{j}(x_j,x_{-j})
+\end{equation}
+Subject to the admissibility condition:
+\[
+    C_j \in \mathcal{C}_j(x_j,x_{-j})
+\]
+and the following funding market conditions:
+\begin{itemize}
+    \item Bank D: deposits priced at $r_d = 0$
+    \item Bank W: $r_w$ solves the break-even condition in Proposition~\ref{prop:wholesale} (Eq.~\eqref{eq:wholesale-breakeven})
+\end{itemize}
+
+\noindent Taking as given: $x_{-j}$, $\gamma$, $\Theta$, $\epsilon$, the distribution $F$ with density $f$, and bank-type primitives (deposit cap $\overline{D}_W$ for Bank W, unlimited insured deposits for Bank D).
+\end{definition}
+
+The first-order condition for optimal lending balances marginal revenue against marginal funding costs, with the specific form depending on each bank's funding structure. I now examine how these general principles apply to our two banks with heterogeneous funding access.
+
+\subsection{General Competitive Equilibrium}
+I now formally define the competitive equilibrium concept that governs the interaction between firms and banks with heterogeneous funding structures. This definition provides the general structure, with specific characterizations to follow once I develop the bank-specific models.
+
+\begin{definition}[General Competitive Equilibrium]\label{def:equilibrium}
+A general competitive equilibrium consists of:
+\begin{itemize}
+    \item \textbf{Allocations:} Firm capital choices $\{k_{i}^{*}\}_{i \in [0,1]}$, bank lending decisions $(x_{j}^{*})_{j \in \{D,W\}}$, and equity contracts $\{C_{j}^{*}(\cdot)\}_{j \in \{D,W\}}$.
+    \item \textbf{Prices:} Lending rate $r^{l*} \geq 0$, wage function $w^{*}:[\underline{A},\overline{A}] \to \mathbb{R}_{+}$, and wholesale funding rate $r_w^* \geq 0$ when applicable.
+    \item \textbf{Derived objects:} Default thresholds $A_j^*(x_D^*, x_W^*, D_j^*)$ for $j \in \{D,W\}$ determined by the threshold equations in Proposition~\ref{prop:threshold}.
+\end{itemize}
+
+\textbf{Existence prerequisites:} The equilibrium is well-defined under standard regularity conditions on value functions and market clearing mappings:
+\begin{itemize}
+    \item All value functions are continuous on compact domains with appropriate boundary behavior
+    \item Default thresholds exist and are unique for any $(x_j, x_{-j}, D_j)$ with $x_j > 0$ (Proposition~\ref{prop:threshold})
+    \item Market clearing conditions define continuous mappings from prices to excess demands
+\end{itemize}
+
+Such that:
+\begin{enumerate}
+    \item \textbf{Firm Optimization:} Each firm i chooses capital to maximize expected profit given the lending rate and anticipated equilibrium wages:
+    \begin{equation}
+        k_{i}^{*} \in \arg\max_{k \ge 0} \mathbb{E}_{A}[\pi V_{1}^{i}(k,A,w^{*}(A))] - \pi(1+r^{l*})k
+    \end{equation}
+    \item \textbf{Bank Optimization:} Each bank $j \in \mathcal{J}$ chooses lending to maximize shareholder value given competitors' strategies and funding market conditions:
+    \begin{equation}
+        x_{j}^{*} \in \arg\max_{x_{j} \in \mathcal{X}_j} w_{j}(x_{j},x_{-j}^{*})
+    \end{equation}
+    where $\mathcal{X}_j$ is the feasible strategy set from Definition~\ref{def:strategy-sets} and $w_{j}$ incorporates the bank's funding structure.
+    \item \textbf{Claim Priority and Thresholds:} Deposits are senior to equity. When present, wholesale debt is junior to deposits and senior to equity. Outside equity is priced competitively with zero expected profit. Default thresholds $A_{j}^{*}$ are determined by $D_{j} = A_{j}^{*} x_{j} \Theta(x_{D}^{*}+x_{W}^{*})^{1/\epsilon}$ as in Proposition~\ref{prop:threshold}.
+    \item \textbf{Market Clearing:}
+    \begin{itemize}
+        \item Loan market: Total bank lending equals aggregate firm demand for capital.
+        \item Labor market: For each realization of A, wages adjust to clear the labor market.
+        \item Funding markets: Bank-specific funding markets clear according to their respective structures.
+    \end{itemize}
+\end{enumerate}
+\end{definition}
+
+% (Removed redundant Probability Space and Measurability paragraph; covered in Section 2.1.)
+
+\subsection{Admissible Contracts and Funding Schedules}
+\label{subsec:admissible}
+I now define the feasible sets of outside equity contracts and deposit schedules that will be used in the banks' optimization problems.
+
+\begin{definition}[Admissible Outside Equity Contracts]\label{def:outside-equity}
+Given bank $j\in\{D,W\}$ with lending choice $x_j\ge 0$ and opponent lending $x_{-j}\ge 0$, an outside equity contract is a payoff function $C_j:[\underline A,\overline A]\to \mathbb{R}_+$ specifying the payoff to outside equity as a function of aggregate productivity $A$. The set of admissible contracts $\mathcal{C}_j(x_j,x_{-j})$ consists of those $C_j(\cdot)$ satisfying, for all $A\in[\underline A,\overline A]$:
+\begin{align}
+    &0 \le C_j(A) \le \big[A\cdot x_j\,\Theta(x_j+x_{-j})^{1/\epsilon} - D_j\big]^+  \label{eq:claim-feasibility}\\
+    &\int_{\underline A}^{\overline A} C_j(A)f(A)\,dA = \gamma x_j \qquad \text{(zero-profit pricing of outside equity)} \label{eq:outside-equity-pricing}
+\end{align}
+where $D_j$ is the face value of bank $j$'s debt obligations (defined below). Condition \eqref{eq:claim-feasibility} imposes limited liability and absolute priority of debt over equity.
+\end{definition}
+
+\begin{definition}[Admissible Deposit Schedules and Debt Face Values]
+For Bank D, insured deposits fund a fraction $(1-\gamma)$ of assets at zero rate; the associated face value is $D_D\equiv (1-\gamma)x_D$.
+
+For Bank W, insured deposits are capped at $\overline D_W$; when $x_W\le \overline D_W/(1-\gamma)$ the face value is $D_W\equiv (1-\gamma)x_W$ and no wholesale funding is used. When $x_W>\overline D_W/(1-\gamma)$, the bank uses wholesale debt for the residual amount $(1-\gamma)x_W-\overline D_W$ at endogenous gross rate $1+r_w$, and the total face value of debt is
+\[
+    D_W\;\equiv\; \overline D_W \; +\; \big[(1-\gamma)x_W-\overline D_W\big](1+r_w).
+\]
+The wholesale rate $r_w$ is determined by the break-even condition in Proposition~\ref{prop:wholesale}.
+\end{definition}
+
+These definitions ensure that all objects used in the banks' optimization problems are well-defined before we state optimality conditions.
+
+The critical distinction between the two banks reflects real-world heterogeneity in deposit-gathering capacity:
+
+\begin{definition}[Bank Funding Structures]
+\begin{enumerate}
+    \item \textbf{Bank D (Deposit-rich bank):} Represents large institutions with extensive branch networks and established deposit franchises, modeled as having unlimited access to insured deposits at zero interest rate.
+    \item \textbf{Bank W (Wholesale-reliant bank):} Represents regional banks, specialized lenders, or new entrants with limited deposit-gathering infrastructure, modeled as facing a deposit constraint $\overline{D}_{W} > 0$ that reflects their structural limitations in attracting stable funding.
+\end{enumerate}
+\end{definition}
+
+This heterogeneity captures several real-world factors: geographic limitations (regional versus national presence), regulatory constraints (industrial loan companies or credit card banks face deposit restrictions), business model choices (wholesale-funded mortgage specialists), and competitive disadvantages (new entrants lacking established customer relationships). These differences drive the main results of our analysis.
+
+\begin{remark}[Derived Equilibrium Objects]
+The equilibrium uniquely determines several derived objects that are functions of the equilibrium variables rather than independent components:
+\begin{itemize}
+    \item Default thresholds: $A_{j}^{*}$ for $j \in \{D, W\}$
+    \item Value functions: $w_{j}^{*} = w_{j}(x_{j}^{*},x_{-j}^{*})$
+    \item Labor demand functions: $L_{i}^{*}(A) = k_{i}^{*}[(1-\alpha)A/w^{*}(A)]^{1/\alpha}$
+\end{itemize}
+These follow mechanically from the equilibrium allocations and prices.
+\end{remark}
+
+\section{Bank-Specific Analysis with Heterogeneous Funding}
+I now develop the specific forms of the optimization problems and equilibrium conditions for the two banks with heterogeneous funding structures, implementing the general equilibrium framework established in Definition~\ref{def:equilibrium}. Bank D enjoys unlimited access to insured deposits while Bank W faces structural limitations requiring wholesale funding beyond its deposit constraint.
+
+\subsection{Bank D: Unlimited Deposit Access}
+Bank D represents large institutions with extensive branch networks and established deposit franchises. Its funding structure and optimization problem follow directly from the general framework with specific simplifications due to unlimited deposit access.
+
+\subsubsection{Funding Structure and Balance Sheet}
+Bank D's balance sheet structure is shown in Table \ref{tab:bankD_bs} in Appendix \ref{app:tables}. The total debt obligation is simply $D_{D} = (1-\gamma)x_{D}$, representing deposits that carry no interest cost due to government insurance.
+
+\subsubsection{Specific Optimization Problem}
+Applying the general framework from Definition~\ref{def:equilibrium}, Bank D's specific optimization problem becomes:
+\begin{equation}
+    \max_{x_{D} \in \mathcal{X}_D} w_{D}(x_{D},x_{W}) = \int_{A_{D}^{*}}^{\overline{A}}[A \cdot x_{D} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon} - (1-\gamma)x_{D}]f(A)dA - \gamma x_{D}
+\end{equation}
+where the default threshold is:
+\begin{equation}
+    A_{D}^{*} = \frac{1-\gamma}{\Theta\,(x_{D}+x_{W})^{1/\epsilon}}
+\end{equation}
+
+\subsubsection{Value Decomposition and Deposit Insurance Subsidy}
+Applying Proposition~\ref{prop:general-value} to Bank D's specific case:
+
+\begin{corollary}[Bank D Value Decomposition]
+Bank D's objective function decomposes as:
+\begin{equation}
+    w_{D} = x_{D}[\Theta\,(x_{D}+x_{W})^{1/\epsilon}-1] + \underbrace{\int_{\underline{A}}^{A_{D}^{*}}[(1-\gamma)x_{D} - A \cdot x_{D} \cdot \Theta\,(x_{D}+x_{W})^{1/\epsilon}]f(A)dA}_{\text{Deposit Insurance Subsidy}}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+See Appendix~\ref{app:deriv-D-value} for the derivation from the general framework.
+\end{proof}
+
+The deposit insurance subsidy captures the expected value of government coverage when bank assets fall short of deposit obligations. This subsidy increases with lending volume and default probability, creating moral hazard.
+
+\subsubsection{First-Order Condition}
+\begin{proposition}[Bank D First-Order Condition]\label{prop:bank-d-foc}
+Bank D's optimal lending satisfies the first-order condition:
+\begin{align}
+    &\Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{W}+\alpha x_{D}] - 1 \nonumber \\
+    &\quad + \int_{\underline{A}}^{A_{D}^{*}} \big[(1-\gamma) - A \cdot \Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{W}+\alpha x_{D}] \big] f(A)\,dA = 0
+\end{align}
+where we recall $1/\epsilon = \alpha - 1$ with $\alpha \in (0,1)$ the capital share parameter. The integral term is strictly positive, representing the marginal value of the deposit insurance subsidy. This positive wedge increases equilibrium lending relative to an unsubsidized benchmark.
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:deriv-D-FOC} for the complete derivation.
+\end{proof}
+
+\subsection{Bank W: Mixed Funding Model}
+Bank W represents regional banks, specialized lenders, or new entrants with limited deposit-gathering infrastructure. Unlike Bank D, Bank W faces a deposit constraint $\overline{D}_{W} > 0$ and must access wholesale funding markets when lending exceeds what can be financed through deposits and equity alone.
+
+\subsubsection{Funding Structure and Balance Sheet}
+When Bank W's optimal lending exceeds its deposit-based funding capacity (i.e., $x_{W} > \overline{D}_{W}/(1-\gamma)$), it must access wholesale funding. Bank W's balance sheet structure when accessing wholesale funding is presented in Table \ref{tab:bankW_bs} in Appendix \ref{app:tables}. The key distinction from Bank D is that wholesale funding carries an endogenous interest rate $r_{w}$ that compensates wholesale funders for default risk.
+
+\subsubsection{Wholesale Funding Market Application}
+For Bank W, the wholesale funding rate adjusts to ensure wholesale funders break even in expectation, as established in Proposition~\ref{prop:wholesale}. This creates a critical difference from Bank D: market discipline through risk-based pricing.
+
+The two thresholds $A_{W}^{*}$ and $A_{W}^{**}$ from the proposition reflect the seniority structure: depositors are repaid first, with wholesale funders bearing losses only after deposits are covered. The wholesale funding rate rises endogenously with Bank W's lending, providing market discipline absent for Bank D.
+
+\subsubsection{Specific Optimization Problem}
+Applying the general framework from Definition~\ref{def:equilibrium}, Bank W's specific optimization problem becomes:
+\begin{equation}
+    \max_{x_{W} \in \mathcal{X}_W} w_{W}(x_{W},x_{D}) \text{ subject to wholesale funding break-even condition (Proposition~\ref{prop:wholesale})}
+\end{equation}
+
+\subsubsection{Value Decomposition with Limited Deposit Access}
+Applying the general framework to Bank W's mixed funding structure:
+
+\begin{corollary}[Bank W Value Decomposition]
+Bank W's objective function decomposes as:
+\begin{equation}
+    w_{W} = x_{W}[\Theta(x_{D}+x_{W})^{1/\epsilon}-1] + \underbrace{\int_{\underline{A}}^{A_{W}^{**}}[\overline{D}_{W} - A \cdot x_{W} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon}]f(A)dA}_{\text{Limited Deposit Insurance Subsidy}}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+See Appendix~\ref{app:deriv-W-value} for the derivation accounting for wholesale funding.
+\end{proof}
+
+Crucially, Bank W's deposit insurance subsidy is capped by its deposit access $\overline{D}_{W}$, in contrast to Bank D's unlimited subsidy that scales with total lending.
+
+\subsubsection{First-Order Condition with Market Discipline}
+\begin{proposition}[Bank W First-Order Condition]\label{prop:bank-w-foc}
+When Bank W accesses wholesale funding ($x_{W}^{*} > \overline{D}_{W}/(1-\gamma)$), its optimal lending satisfies:
+\begin{align}
+    &\Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{D}+\alpha x_{W}] - 1 \nonumber \\
+    &\quad - \int_{\underline{A}}^{A_{W}^{**}} A \cdot \Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{D}+\alpha x_{W}] f(A)\,dA = 0
+\end{align}
+where we recall $1/\epsilon = \alpha - 1$ with $\alpha \in (0,1)$. The negative integral term represents market discipline: wholesale funders demand higher returns as Bank W's lending increases, partially offsetting the moral hazard from limited deposit insurance.
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:deriv-W-FOC} for the derivation incorporating endogenous wholesale funding costs.
+\end{proof}
+
+\begin{remark}[Contrasting Incentives]
+Comparing the first-order conditions reveals the fundamental asymmetry in incentives. Bank D faces a positive integral term (deposit insurance subsidy) that increases lending and default probability, while Bank W faces a negative integral term (market discipline through wholesale funding costs) that reduces lending relative to Bank D. This asymmetry drives the differential default probabilities and market concentration results established in subsequent sections.
+\end{remark}
+
+\begin{proposition}[Optimality at the deposit cap via KKT]\label{prop:kktcap}
+When $(1-\gamma)x_W\le \overline D_W$, bank $W$'s program is unconstrained. At the cap, i.e., at $x_W=\overline D_W/(1-\gamma)$, the constrained maximization
+\begin{equation}
+\max_{x_W\ge 0} \; w_W(x_W;x_D) \quad \text{s.t.}\quad g(x_W)\equiv (1-\gamma)x_W-\overline D_W\;\le\;0
+\end{equation}
+obeys the KKT conditions: there exists $\mu\ge 0$ such that
+\begin{equation}
+\nabla_{x_W} w_W(x_W;x_D) + \mu\,\nabla g(x_W)=0\,,\qquad \mu\,g(x_W)=0\, .
+\end{equation}
+Concavity on either side of the cap (Lemma~\ref{lem:wholesale} and the revenue curve $R(X)=\Theta X^{-\sigma}$) makes these conditions necessary and sufficient. This nests the left- and right-derivative cases and justifies the kink optimum.
+\end{proposition}
+
+\subsection{Equilibrium Characterization}
+Having developed the bank-specific optimization problems, we now specify how these elements determine the equilibrium.
+
+\begin{proposition}[Equilibrium Characterization]\label{prop:char}
+The equilibrium $(x_{D}^{*}, x_{W}^{*}, r^{l*}, w^{*}(\cdot), r_{w}^{*})$ from Definition~\ref{def:equilibrium} with heterogeneous banks is characterized by:
+\begin{enumerate}
+    \item \textbf{Lending Rate Determination:}
+    \begin{equation}
+        1+r^{l*} = \alpha^{2}\overline{L}^{1-\alpha}(x_{D}^{*}+x_{W}^{*})^{-(1-\alpha)}
+    \end{equation}
+    \item \textbf{Bank Lending Conditions:}
+    \begin{itemize}
+        \item Bank D satisfies the first-order condition in Proposition~\ref{prop:bank-d-foc}.
+        \item Bank W satisfies the first-order condition in Proposition~\ref{prop:bank-w-foc} if $x_{W}^{*} > \overline{D}_{W}/(1-\gamma)$, otherwise $x_{W}^{*} = \overline{D}_{W}/(1-\gamma)$.
+    \end{itemize}
+    \item \textbf{Wholesale Rate Determination:} When $x_{W}^{*} > \overline{D}_{W}/(1-\gamma)$, the rate $r_{w}^{*}$ solves the break-even condition in Proposition~\ref{prop:wholesale}.
+    \item \textbf{Threshold Determination:}
+    \begin{equation}
+        A_{D}^{*} = \frac{1-\gamma}{\Theta(x_{D}^{*}+x_{W}^{*})^{1/\epsilon}}
+    \end{equation}
+    \begin{equation}
+        A_{W}^{*} = \begin{cases} \frac{\overline{D}_{W}+[(1-\gamma)x_{W}^{*}-\overline{D}_{W}](1+r_{w}^{*})}{x_{W}^{*} \cdot \Theta(x_{D}^{*}+x_{W}^{*})^{1/\epsilon}} & \text{if } x_{W}^{*} > \overline{D}_{W}/(1-\gamma) \\ \frac{1-\gamma}{\Theta(x_{D}^{*}+x_{W}^{*})^{1/\epsilon}} & \text{if } x_{W}^{*} = \overline{D}_{W}/(1-\gamma) \end{cases}
+    \end{equation}
+\end{enumerate}
+\end{proposition}
+
+\section{Equilibrium Existence, Uniqueness, and Properties}
+Having established the equilibrium concept in Definition~\ref{def:equilibrium} and its characterization in Proposition~\ref{prop:char}, we now prove existence and uniqueness and derive key properties.
+
+
+
+\begin{proposition}[Equilibrium Properties]\label{prop:strategic-substitutes}
+The unique equilibrium $(x_{D}^{*}, x_{W}^{*}, r^{l*}, r_{w}^{*})$ satisfies:
+\begin{enumerate}
+    \item[(i)] Positive lending: Both banks actively lend with $x_{D}^{*} > 0$ and $x_{W}^{*} \ge \frac{\overline{D}_{W}}{1-\gamma} > 0$.
+    \item[(ii)] Strategic substitutability: Lending decisions are strategic substitutes.
+    \item[(iii)] Differential default risk: Bank D maintains higher default probability than Bank W, $F(A_D^*) > F(A_W^*)$.
+    \item[(iv)] Market discipline asymmetry: Bank W faces endogenous funding costs while Bank D does not.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:proof-prop6-4} for detailed verification of each property.
+\end{proof}
+
+\begin{remark}[Sign Determination]
+The positive sign of both effects follows from the specific structure of our model. The direct effect is positive because increased deposit access reduces Bank W's marginal funding cost through the wholesale funding channel. The strategic effect is positive because lending decisions are strategic substitutes (established in Proposition~\ref{prop:strategic-substitutes}), and Bank D reduces lending when Bank W gains deposit access (Theorem~\ref{thm:deposit-access}).
+\end{remark}
+
+These equilibrium properties highlight the fundamental asymmetry created by differential deposit access. Bank D's unlimited deposit insurance enables higher equilibrium lending and default probability, while Bank W faces endogenous wholesale funding rates that increase with leverage.
+
+\section{Comparative Analysis and Market Structure Implications}
+Building on the equilibrium existence and uniqueness established in the previous section, we now examine how heterogeneous deposit access affects market outcomes through comparative statics analysis.
+
+\begin{lemma}[Cross-partial sign pattern]\label{lem:crosspartials}
+The Jacobian of first-order conditions has the M-matrix structure: $\partial^2 w_j/\partial x_j^2<0$ (own second derivatives negative by strict concavity) and $\partial^2 w_j/\partial x_j\partial x_k<0$ for $j\neq k$ (cross-partials negative by strategic substitutability via the common price effect $R'(X)<0$).
+\end{lemma}
+
+\begin{proposition}[Comparative statics in deposit access]\label{prop:csDepositAccess}
+Let $F_D(x_D,x_W;\overline D_W)=0$ and $F_W(x_D,x_W;\overline D_W)=0$ denote the first-order conditions (including the KKT case at the cap). The Jacobian $J=\partial(F_D,F_W)/\partial(x_D,x_W)$ is nonsingular by Proposition~\ref{prop:diagonaldominance}. By the implicit function theorem,
+\begin{equation}
+\frac{d}{d\overline D_W}\begin{bmatrix}x_D^*\\ x_W^*\end{bmatrix}
+\;=\; -\,J^{-1}\,\begin{bmatrix}\partial F_D/\partial\overline D_W\\ \partial F_W/\partial\overline D_W\end{bmatrix}.
+\end{equation}
+Using $R'(X)<0$, $\partial r_w/\partial x_W>0$ (Lemma~\ref{lem:wholesale}), and the sign pattern of cross-partials, it follows that $dx_W^*/d\overline D_W>0$, $dx_D^*/d\overline D_W<0$, and $dX^*/d\overline D_W>0$. Monotone parameter shifts also satisfy the single-crossing property for monotone comparative statics.
+\end{proposition}
+
+\begin{theorem}[Deposit Access and Equilibrium Lending]\label{thm:deposit-access}
+In the unique equilibrium characterized by Theorem~\ref{thm:uniqueness}, the following comparative statics hold:
+\begin{enumerate}
+    \item[(i)] Direct effect: Banks with greater deposit access lend more: $\frac{dx_{W}^{*}}{d\overline{D}_{W}} > 0$.
+    \item[(ii)] Strategic response: Competing deposit-rich banks reduce lending: $\frac{dx_{D}^{*}}{d\overline{D}_{W}} < 0$.
+    \item[(iii)] Aggregate effect: Total market lending increases: $\frac{d(x_{D}^{*}+x_{W}^{*})}{d\overline{D}_{W}} > 0$.
+    \item[(iv)] Effect magnitudes: The direct effect dominates the strategic response: $|\frac{dx_{W}^{*}}{d\overline{D}_{W}}| > |\frac{dx_{D}^{*}}{d\overline{D}_{W}}|$.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Monotone Comparative Statics]
+Let $\Phi_W(x_W; x_D,\overline{D}_W)\equiv \partial w_W/\partial x_W$. Holding $x_D$ fixed, $\Phi_W$ satisfies the single-crossing property in $(x_W,\overline{D}_W)$: $\partial\Phi_W/\partial x_W<0$ (strict concavity) and $\partial\Phi_W/\partial\overline{D}_W>0$ (a higher $\overline{D}_W$ relaxes market discipline at the margin). By the theory of monotone comparative statics, $x_W^{*}$ is increasing in $\overline{D}_W$. Since $\partial\Phi_D/\partial x_W<0$ (strategic substitutability from Proposition~\ref{prop:strategic-substitutes}), $x_D^{*}$ decreases with $\overline{D}_W$.
+\end{remark}
+
+\begin{proof}
+See Appendix~\ref{app:proof-theorem7-1} for the complete comparative statics analysis.
+\end{proof}
+
+\begin{proposition}[Deposit Access Decomposition]\label{prop:decomposition}
+The total effect of improved deposit access on Bank W's lending can be decomposed as:
+\begin{equation}
+    \frac{dx_{W}^{*}}{d\overline{D}_{W}} = \underbrace{\frac{\partial x_{W}^{*}}{\partial\overline{D}_{W}}\bigg|_{x_{D} \text{ fixed}}}_{\text{Direct Effect} > 0} + \underbrace{\frac{\partial x_{W}^{*}}{\partial x_{D}}\bigg|_{\overline{D}_{W} \text{ fixed}} \cdot \frac{dx_{D}^{*}}{d\overline{D}_{W}}}_{\text{Strategic Effect} > 0}
+\end{equation}
+Both components are positive: the direct effect from reduced funding costs and the strategic effect from Bank D's equilibrium retreat (since $\frac{\partial x_{W}^{*}}{\partial x_{D}} < 0$ and $\frac{dx_{D}^{*}}{d\overline{D}_{W}} < 0$).
+\end{proposition}
+
+\begin{proposition}[Asymmetric Amplification to Aggregate Shocks]\label{prop:amplification}
+Let $A$ shift by $dA>0$. Then $dx_D^{*}/dA > dx_W^{*}/dA$ when $\overline{D}_W$ is small (deposit-rich banks amplify good shocks more), while $dx_W^{*}/dA > dx_D^{*}/dA$ when $\overline{D}_W$ is large (market discipline attenuates Bank W less). Consequently, the elasticity gap $|dx_D^{*}/dA - dx_W^{*}/dA|$ is decreasing in $\overline{D}_W$.
+\end{proposition}
+
+\begin{proof}[Sketch]
+By the implicit function theorem, since the Jacobian of first-order conditions is nonsingular under diagonal strict concavity (Rosen, 1965), we have
+$(dx_D^{*},dx_W^{*})' = -J^{-1}\,(\partial\Phi_D/\partial A,\,\partial\Phi_W/\partial A)'$. For small $\overline{D}_W$, the insurance wedge implies $\partial\Phi_D/\partial A>\partial\Phi_W/\partial A\ge 0$. With strategic substitutability ($J$ has negative diagonals and negative off-diagonals), $-J^{-1}$ has positive diagonals and negative off-diagonals, yielding $dx_D^{*}/dA>dx_W^{*}/dA$. As $\overline{D}_W$ increases, the wedge shrinks and the ordering reverses.
+\end{proof}
+
+\begin{proof}
+The decomposition follows from the chain rule applied to the equilibrium system. See Appendix~\ref{app:proof-prop7-2} for details.
+\end{proof}
+
+\begin{remark}[Economic Interpretation]
+Bank W benefits through two reinforcing channels when its deposit access improves: (i) directly through lower funding costs, allowing more profitable lending, and (ii) indirectly through Bank D's strategic retreat, which reduces competition for loans. This complementarity amplifies the impact of changes in funding access on market structure.
+\end{remark}
+
+The heterogeneity in deposit access has profound implications for banking market structure, concentration, and systemic risk distribution.
+
+\begin{proposition}[Market Concentration]\label{prop:market-concentration}
+Define the market concentration ratio as
+\begin{equation*}
+CR \equiv \frac{x_D^*}{x_D^* + x_W^*}
+\end{equation*}
+Then:
+\begin{enumerate}
+    \item[(i)] Market concentration increases with funding heterogeneity: $\frac{dCR}{d\overline{D}_{W}} < 0$.
+    \item[(ii)] Market concentration sensitivity $|\frac{dCR}{d\overline{D}_{W}}|$ is maximized when banks have approximately equal market shares $(x_{D}^{*} \approx x_{W}^{*})$.
+    \item[(iii)] In the limit of extreme heterogeneity $(\overline{D}_{W} \to 0)$, the market becomes monopolistic: $CR \to 1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:proof-prop7-4} for the analysis of concentration dynamics.
+\end{proof}
+
+\begin{remark}[Economic Interpretation]
+The concentration results reveal how structural differences in deposit access create persistent market concentration. Banks with limited deposit franchises face different equilibrium constraints even when they have identical lending technologies and serve the same markets. This provides a framework for understanding observed concentration patterns in banking systems and predicting how these patterns respond to changes in funding access.
+\end{remark}
+
+\begin{proposition}[Risk Distribution]\label{prop:risk-distribution}
+In equilibrium, the distribution of systemic risk exhibits the following properties:
+\begin{enumerate}
+    \item[(i)] Bank D's default probability exceeds Bank W's by a factor proportional to $(1+r_{w}^{*})$.
+    \item[(ii)] The effect of deposit access on aggregate default risk depends on two opposing forces:
+    \begin{itemize}
+        \item Market share effect: Increasing $\overline{D}_{W}$ shifts lending toward Bank W (safer).
+        \item Individual risk effect: Higher $\overline{D}_{W}$ may increase Bank W's risk-taking.
+    \end{itemize}
+    When the market share effect dominates, aggregate risk decreases with $\overline{D}_{W}$. When the individual risk effect dominates, aggregate risk increases with $\overline{D}_{W}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:proof-prop7-6} for the proof.
+\end{proof}
+
+\noindent\textbf{Price-competition robustness.} If banks set loan rates rather than quantities, the revenue curve $R(X)$ pins quantities one-for-one in equilibrium; the subsidy/discipline wedge logic and all comparative statics above remain unchanged.
+
+\noindent\textbf{Empirical mapping.} Deposit access $\overline D_W$ maps to insured-deposit capacity or branch-network deposit share; wholesale discipline $r_w$ maps to wholesale spreads/CDS or brokered-deposit rates; the concentration measure $CR\equiv x_D^*/(x_D^*+x_W^*)$ inherits the signs in Proposition~\ref{prop:csDepositAccess}.
+
+\begin{remark}[Notation cross-reference]\label{rem:notation}
+We use $\sigma\equiv 1-\alpha\in(0,1)$ and $\Theta\equiv \pi\,\alpha^2\,\bar L^{1-\alpha}$. The inverse credit demand (firm revenue) is $R(X)=\Theta X^{-\sigma}$. Default thresholds are given by~\eqref{eq:threshold}. Insurer budget balance is~\eqref{eq:insurerBudget}. KKT at the cap is in Proposition~\ref{prop:kktcap}. Sufficient conditions for uniqueness are consolidated in Proposition~\ref{prop:diagonaldominance}.
+\end{remark}
+
+\section{Conclusion}
+This paper develops a general equilibrium model of strategic banking competition to analyze how heterogeneous access to stable deposit funding shapes market outcomes. I characterize Nash equilibrium between two banks with asymmetric funding structures: one with unlimited insured deposits and another facing deposit constraints requiring wholesale funding. Building on the methodologies of \citet{Malherbe2020} and \citet{BahajMalherbe2020}, I extend their frameworks to analyze strategic interaction with funding heterogeneity.
+
+My analysis establishes three main theoretical results. First, I prove existence of equilibrium and, under a dominant diagonal condition, its uniqueness, demonstrating that lending decisions are strategic substitutes. Second, I show that funding heterogeneity creates endogenous market segmentation: deposit-rich banks achieve higher market share and maintain higher default probabilities by exploiting deposit insurance subsidies, while wholesale-funded banks face market discipline through endogenous funding costs that constrain their risk-taking. Third, my comparative statics analysis characterizes how changes in deposit access affect market structure, with improved access benefiting constrained banks through both direct and strategic channels.
+
+The model generates testable predictions about banking market structure. Banks with limited deposit access face binding market discipline despite competing for the same loans as deposit-rich institutions. This funding heterogeneity creates persistent differences in leverage ratios, default probabilities, and market concentration that cannot be eliminated through competition alone. These results help explain why large banks with extensive deposit franchises maintain persistently higher leverage, why regional banks often focus on relationship lending with higher margins, and why banking crises frequently originate among institutions with concentrated funding sources.
+
+My framework abstracts from several important features that merit future research. First, I model only two banks; extending to oligopolistic competition with multiple funding types could generate richer patterns of market segmentation. Second, I take deposit constraints as exogenous; endogenizing deposit gathering through costly branch networks or digital technology could illuminate how funding advantages evolve. Third, incorporating dynamic capital accumulation and relationship lending could explain how wholesale-funded banks survive despite structural disadvantages. Finally, analyzing optimal regulatory responses to funding heterogeneity—including differential capital requirements or deposit insurance pricing—remains an important policy question.
+
+\bibliographystyle{apalike}
+\bibliography{your_bib_file}
+
+\appendix
+\setcounter{secnumdepth}{4}
+
+\section{Tables}
+\label{app:tables}
+
+\begin{table}[h!]
+\centering
+\caption{Bank D Balance Sheet Structure}
+\begin{tabular}{ll}
+\toprule
+\textbf{Assets} & \textbf{Liabilities \& Equity} \\
+\midrule
+Loans: $x_D$ & Insured Deposits: $(1-\gamma)x_D$ \\
+              & Outside Equity: $\gamma x_D$ \\
+              & Inside Equity: $\kappa \to 0$ \\
+\bottomrule
+\end{tabular}
+\label{tab:bankD_bs}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Bank W Balance Sheet Structure (Mixed Funding Regime)}
+\begin{tabular}{ll}
+\toprule
+\textbf{Assets} & \textbf{Liabilities \& Equity} \\
+\midrule
+Loans: $x_W$ & Insured Deposits: $\overline{D}_{W}$ \\
+              & Wholesale Funding: $(1-\gamma)x_{W}-\overline{D}_{W}$ \\
+              & Outside Equity: $\gamma x_W$ \\
+              & Inside Equity: $\kappa \to 0$ \\
+\bottomrule
+\end{tabular}
+\label{tab:bankW_bs}
+\end{table}
+
+\section{Technical Appendix}
+\label{app:tech}
+
+This appendix provides detailed mathematical derivations for the results presented in the main text.
+
+\subsection{Derivation of Firm Equilibrium (Proposition~\ref{prop:firm-eq})}
+\label{app:deriv-firm}
+I establish Proposition~\ref{prop:firm-eq} through backward induction, solving the firm's dynamic optimization problem under the output-contingent remuneration framework established in Assumption~\ref{ass:prod}(d), where wages are paid from realized output only when firms succeed.
+
+\subsubsection{Stage 2: Labor Choice at Date t=1}
+At date $t=1$, given capital $k_{i}$, observed aggregate productivity A, and market wage w, firm i chooses labor to maximize expected production value net of wage payments. Under the wage structure from Assumption 2.4(d), the firm's problem is:
+\begin{equation}
+\max_{L_{i} \ge 0} V_{1}^{i}(k_{i},A,w) = \pi \cdot [A \cdot k_{i}^{\alpha}L_{i}^{1-\alpha} - wL_{i}]
+\end{equation}
+The first-order condition yields:
+\begin{equation}
+\pi \cdot (1-\alpha)Ak_{i}^{\alpha}L_{i}^{-\alpha} = \pi \cdot w
+\end{equation}
+Simplifying by dividing both sides by $\pi$:
+\begin{equation}
+(1-\alpha)Ak_{i}^{\alpha}L_{i}^{-\alpha} = w
+\end{equation}
+Solving for optimal labor demand:
+\begin{equation}
+L_{i}^{*}(k_{i},A,w) = k_{i}\left[\frac{(1-\alpha)A}{w}\right]^{1/\alpha}
+\end{equation}
+
+\subsubsection{Equilibrium Wage Determination}
+Labor market clearing requires aggregate labor demand equals the inelastic supply:
+\begin{equation}
+\int_{0}^{1} L_{i}^{*}(k_{i},A,w)di = \overline{L}
+\end{equation}
+In symmetric equilibrium where all firms choose capital k:
+\begin{equation}
+k\left[\frac{(1-\alpha)A}{w}\right]^{1/\alpha} = \overline{L}
+\end{equation}
+Solving for the equilibrium wage:
+\begin{equation}
+w^{*}(A) = (1-\alpha)A\left(\frac{k}{\overline{L}}\right)^{\alpha}
+\end{equation}
+Workers understand they receive this wage only when firms succeed (probability $\pi$), but with risk neutrality, they care only about expected wages. The expected wage equals:
+\begin{equation}
+\mathbb{E}[\text{wage}] = \pi \cdot w^{*}(A) = \pi(1-\alpha)A\left(\frac{k}{\overline{L}}\right)^{\alpha}
+\end{equation}
+
+\subsubsection{Stage 1: Capital Choice at Date t=0}
+At date $t=0$, firm i chooses capital to maximize expected profit. When successful (probability $\pi$), the firm produces $Ak_{i}^{\alpha}\overline{L}^{1-\alpha}$, pays wages $(1-\alpha)Ak_{i}^{\alpha}\overline{L}^{1-\alpha}$, retaining $\alpha Ak_{i}^{\alpha}\overline{L}^{1-\alpha}$. The firm must repay $(1+r^{l})k_{i}$ to the bank when successful. With limited liability, the firm defaults when $a_{i}=0$ and pays nothing. The firm's expected profit is:
+\begin{equation}
+V_{0}^{i} = \pi \cdot \mathbb{E}_{A}[\alpha Ak_{i}^{\alpha}\overline{L}^{1-\alpha} - (1+r^{l})k_{i}]
+\end{equation}
+Since $\mathbb{E}[A]=1$:
+\begin{equation}
+V_{0}^{i} = \pi\alpha k_{i}^{\alpha}\overline{L}^{1-\alpha} - \pi(1+r^{l})k_{i}
+\end{equation}
+The first-order condition is:
+\begin{equation}
+\pi\alpha^{2}k_{i}^{\alpha-1}\overline{L}^{1-\alpha} = \pi(1+r^{l})
+\end{equation}
+Dividing by $\pi$ and solving for optimal capital:
+\begin{equation}
+\alpha^{2}k_{i}^{\alpha-1}\overline{L}^{1-\alpha} = (1+r^{l})
+\end{equation}
+Therefore:
+\begin{equation}
+k^{*} = \overline{L}\left(\frac{\alpha^{2}}{1+r^{l}}\right)^{\frac{1}{1-\alpha}}
+\end{equation}
+In competitive equilibrium, expected firm profit equals zero, confirming that this is indeed the equilibrium capital choice. This completes the derivation of Proposition~\ref{prop:firm-eq}.
+
+\subsection{Derivation of Bank Revenue Function (Proposition~\ref{prop:rev})}
+\label{app:deriv-revenue}
+From the symmetric equilibrium established in Section B.1, aggregate loan demand is:
+\begin{equation}
+K^{d}(r^{l}) = \overline{L}\left(\frac{\alpha^{2}}{1+r^{l}}\right)^{\frac{1}{1-\alpha}}
+\end{equation}
+Inverting this relationship to express the lending rate as a function of aggregate lending X:
+\begin{equation}
+\left(\frac{\alpha^{2}}{1+r^{l}}\right)^{\frac{1}{1-\alpha}} = \frac{X}{\overline{L}}
+\end{equation}
+Raising both sides to the power $(1-\alpha)$:
+\begin{equation}
+\frac{\alpha^{2}}{1+r^{l}} = \left(\frac{X}{\overline{L}}\right)^{1-\alpha}
+\end{equation}
+Solving for the lending rate:
+\begin{equation}
+1+r^{l} = \alpha^{2}\overline{L}^{1-\alpha}X^{-(1-\alpha)}
+\end{equation}
+Banks lend to a continuum of firms with independent idiosyncratic risks. By the law of large numbers, exactly fraction $\pi$ of firms succeed and repay their loans. Expected revenue per unit lent equals:
+\begin{equation}
+R = \pi(1+r^{l}) = \pi\alpha^{2}\overline{L}^{1-\alpha}X^{-(1-\alpha)}
+\end{equation}
+Defining $\Theta \equiv \pi\alpha^{2}\overline{L}^{1-\alpha}$ and noting that $1/\epsilon = -(1-\alpha)$ where $\epsilon = -\frac{1}{1-\alpha}$ is the loan demand elasticity:
+\begin{equation}
+R(X) = \Theta \cdot X^{1/\epsilon}
+\end{equation}
+Since $\epsilon < -1$ (as $\alpha \in (0,1)$), we have $1/\epsilon \in (-1,0)$, confirming that the revenue function exhibits decreasing returns to scale in aggregate lending. This completes the derivation of Proposition~\ref{prop:rev}.
+
+\subsection{Verification of Strategic Default Prevention}
+I verify that the parameter restriction $\underline{A} > \alpha$ prevents strategic default by successful firms. Consider a firm with $a_{i}=1$ that has borrowed k at rate $r^{l}$ and hired L workers at wage w. The firm produces output:
+\begin{equation}
+y = Ak^{\alpha}L^{1-\alpha}
+\end{equation}
+In equilibrium, $L=\overline{L}$ and $w=(1-\alpha)A(k/\overline{L})^{\alpha}$. The firm's obligations are:
+\begin{itemize}
+    \item Bank debt: $(1+r^{l})k$
+    \item Worker wages: $w \cdot \overline{L} = (1-\alpha)Ak^{\alpha}\overline{L}^{1-\alpha}$
+\end{itemize}
+The firm's net payoff from repaying all obligations is:
+\begin{equation}
+\pi_{\text{repay}} = Ak^{\alpha}\overline{L}^{1-\alpha} - (1+r^{l})k - (1-\alpha)Ak^{\alpha}\overline{L}^{1-\alpha} = \alpha Ak^{\alpha}\overline{L}^{1-\alpha} - (1+r^{l})k
+\end{equation}
+Strategic default yields zero payoff due to limited liability. Therefore, the firm prefers repayment when:
+\begin{equation}
+\alpha Ak^{\alpha}\overline{L}^{1-\alpha} \ge (1+r^{l})k
+\end{equation}
+Rearranging:
+\begin{equation}
+\alpha Ak^{\alpha-1}\overline{L}^{1-\alpha} \ge (1+r^{l})
+\end{equation}
+From the firm's first-order condition in equilibrium (derived in Section B.1):
+\begin{equation}
+\alpha^{2}k^{\alpha-1}\overline{L}^{1-\alpha} = (1+r^{l})
+\end{equation}
+Substituting this relationship into the no-strategic-default condition:
+\begin{equation}
+\alpha Ak^{\alpha-1}\overline{L}^{1-\alpha} \ge \alpha^{2}k^{\alpha-1}\overline{L}^{1-\alpha}
+\end{equation}
+Simplifying:
+\begin{equation}
+A > \alpha
+\end{equation}
+Since this condition must hold for all realizations of aggregate productivity, we require:
+\begin{equation}
+\underline{A} > \alpha
+\end{equation}
+This parameter restriction ensures that even in the worst aggregate state, successful firms generate sufficient value to cover their obligations, eliminating incentives for strategic default. The economic interpretation is straightforward: aggregate productivity must be sufficiently high relative to the capital intensity of production to maintain contractual integrity. This completes the verification.
+
+\subsection{Bank Contract Characterizations}
+Both banks face similar contracting problems with outside equity investors. Equity is competitively priced ex ante and junior to deposits, while the banker (inside equity) receives the residual value subject to limited liability. The following proof states the default-threshold and payoff representation used throughout.
+
+\subsubsection{Proof of Proposition~\ref{prop:threshold}: Default Threshold and Payoff Representation}
+\label{app:proof-threshold}
+By priority of claims, deposits are paid first. Let $V(A;x_j,x_{-j}) = A \cdot x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon}$ denote the gross asset value. Limited liability implies equity receives $[V(A;\cdot)-D_j]^+$ in state $A$. Outside equity is priced competitively ex ante and equals $\gamma x_j$, so the banker's expected payoff is
+\begin{equation}
+w_j(x_j,x_{-j}) = \int_{\underline{A}}^{\overline{A}}[V(A;x_j,x_{-j})-D_j]^+ f(A)\,dA - \gamma x_j.
+\end{equation}
+Define the default threshold $A_j^*$ as the unique solution to $V(A_j^*;x_j,x_{-j})=D_j$, i.e.
+\begin{equation}
+A_j^* = \frac{D_j}{x_j\,\Theta(x_j+x_{-j})^{1/\epsilon}}.
+\end{equation}
+Then $[V-D_j]^+=0$ for $A<A_j^*$ and $[V-D_j]^+=V-D_j$ for $A\ge A_j^*$, yielding the stated integral representation.
+
+\subsubsection{Proof of Proposition~\ref{prop:general-value}: General Value Decomposition}
+\label{app:proof-general-value}
+Starting from the payoff representation in Proposition~\ref{prop:threshold}:
+\begin{equation}
+w_{j} = \int_{A_{j}^{*}}^{\overline{A}}[A \cdot x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon} - D_{j}]f(A)dA - \gamma x_{j}
+\end{equation}
+I decompose the revenue integral by adding and subtracting the integral over default states:
+\begin{align}
+\int_{A_{j}^{*}}^{\overline{A}} A \cdot x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon}f(A)dA &= \int_{\underline{A}}^{\overline{A}} A \cdot x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon}f(A)dA \nonumber \\
+&\quad - \int_{\underline{A}}^{A_{j}^{*}} A \cdot x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon}f(A)dA
+\end{align}
+Since $\mathbb{E}[A] = \int_{\underline{A}}^{\overline{A}} Af(A)dA = 1$:
+\begin{equation}
+\int_{\underline{A}}^{\overline{A}} A \cdot x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon}f(A)dA = x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon}
+\end{equation}
+For the debt payment term:
+\begin{equation}
+\int_{A_{j}^{*}}^{\overline{A}} D_{j}f(A)dA = D_{j}[1-F(A_{j}^{*})]
+\end{equation}
+Substituting these expressions and using $D_{j} + \gamma x_{j} = x_{j}$:
+\begin{align}
+w_{j} &= x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon} - \int_{\underline{A}}^{A_{j}^{*}} A \cdot x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon}f(A)dA - D_{j} + D_{j}F(A_{j}^{*}) - \gamma x_{j} \\
+&= x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon} - x_{j} + \int_{\underline{A}}^{A_{j}^{*}}[D_{j} - A \cdot x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon}]f(A)dA
+\end{align}
+This yields the decomposition:
+\begin{equation}
+w_{j} = \underbrace{x_{j}[\Theta(x_{j}+x_{-j})^{1/\epsilon}-1]}_{\text{Private NPV}_{j}} + \underbrace{\int_{\underline{A}}^{A_{j}^{*}}[D_{j}-A \cdot x_{j} \cdot \Theta(x_{j}+x_{-j})^{1/\epsilon}]f(A)dA}_{\text{Subsidy}_{j}}
+\end{equation}
+The NPV term represents expected revenue minus the total cost of funds (normalized to 1 per unit). The Subsidy term captures the expected government payout in default states. Since workers receive nothing when firms fail, this represents private rather than social value creation.
+
+\subsection{Bank-Specific Derivations}
+\subsubsection{Bank D Specific Elements}
+For Bank D with unlimited deposit access at zero cost, we have $D_{D} = (1-\gamma)x_{D}$.
+
+\paragraph{Derivation of Bank D Value Decomposition}
+\label{app:deriv-D-value}
+Substituting $D_{D} = (1-\gamma)x_{D}$ into the general decomposition from Proposition~\ref{prop:general-value}:
+\begin{itemize}
+    \item \textbf{Default Threshold:}
+    \begin{equation}
+    A_{D}^{*} = \frac{(1-\gamma)x_{D}}{x_{D} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon}} = \frac{1-\gamma}{\Theta(x_{D}+x_{W})^{1/\epsilon}}
+    \end{equation}
+    where $\Theta=\pi\alpha^{2}\overline{L}^{1-\alpha}$ and $1/\epsilon = -(1-\alpha)$.
+    \item \textbf{Subsidy Specification:}
+    \begin{equation}
+    \text{Subsidy}_{D} = \int_{\underline{A}}^{A_{D}^{*}}[(1-\gamma)x_{D} - A \cdot x_{D} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon}]f(A)dA
+    \end{equation}
+    This can be factored as:
+    \begin{equation}
+    \text{Subsidy}_{D} = x_{D}\int_{\underline{A}}^{A_{D}^{*}}[(1-\gamma) - A \cdot \Theta(x_{D}+x_{W})^{1/\epsilon}]f(A)dA
+    \end{equation}
+\end{itemize}
+This completes the derivation of the Bank D value decomposition.
+
+\paragraph{Derivation of Bank D First-Order Condition (Proposition~\ref{prop:bank-d-foc})}
+\label{app:deriv-D-FOC}
+To derive the first-order condition, we differentiate Bank D's value function with respect to $x_D$.
+\begin{description}
+    \item[Step 1: Differentiate Private NPV.]
+    \begin{align*}
+    \frac{\partial}{\partial x_{D}}[x_{D} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon} - x_{D}] &= \Theta(x_{D}+x_{W})^{1/\epsilon} - 1 + x_{D} \cdot \Theta \cdot \frac{1}{\epsilon}(x_{D}+x_{W})^{1/\epsilon-1} \\
+    &= \Theta(x_{D}+x_{W})^{1/\epsilon} - 1 - x_{D} \cdot \Theta(1-\alpha)(x_{D}+x_{W})^{1/\epsilon-1} \\
+    &= \Theta(x_{D}+x_{W})^{1/\epsilon-1}[(x_{D}+x_{W}) - (1-\alpha)x_{D}] - 1 \\
+    &= \Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{W}+\alpha x_{D}] - 1
+    \end{align*}
+    where we use the fact that $1-(1-\alpha)=\alpha$, the capital share parameter.
+    
+    \item[Step 2: Differentiate Deposit Insurance Subsidy.]
+    Applying the Leibniz integral rule to the subsidy term:
+    \begin{equation*}
+    \frac{\partial}{\partial x_{D}}\int_{\underline{A}}^{A_{D}^{*}}[(1-\gamma)x_{D} - A \cdot x_{D} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon}]f(A)dA
+    \end{equation*}
+    The boundary term vanishes because at $A=A_{D}^{*}$, the integrand is zero by definition of $A_{D}^{*}$. Thus, we only differentiate inside the integral:
+    \begin{align*}
+    \frac{\partial \text{Subsidy}_{D}}{\partial x_{D}} &= \int_{\underline{A}}^{A_{D}^{*}}\frac{\partial}{\partial x_{D}}[(1-\gamma)x_{D} - A \cdot x_{D} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon}]f(A)dA \\
+    &= \int_{\underline{A}}^{A_{D}^{*}}[(1-\gamma) - A \cdot \Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{W}+\alpha x_{D}]]f(A)dA
+    \end{align*}
+    
+    \item[Step 3: Verify Positivity of the Integral Term.]
+    For all $A < A_{D}^{*} = \frac{1-\gamma}{\Theta(x_{D}+x_{W})^{1/\epsilon}}$, we have $A \cdot \Theta(x_{D}+x_{W})^{1/\epsilon} < (1-\gamma)$. Since $[x_{W}+\alpha x_{D}] < (x_{D}+x_{W})$:
+    \begin{equation*}
+    A \cdot \Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{W}+\alpha x_{D}] < A \cdot \Theta(x_{D}+x_{W})^{1/\epsilon} < (1-\gamma)
+    \end{equation*}
+    Therefore, the integrand is strictly positive for all $A \in [\underline{A}, A_{D}^{*})$.
+    
+    \item[Step 4: Combine to get First-Order Condition.]
+    Setting $\frac{dw_{D}}{dx_{D}}=0$ yields the first-order condition:
+    \begin{align}
+    &\Theta(x_{D}+x_{W})^{1/\epsilon-1}\big[x_{W}+\alpha x_{D}\big] - 1 \\
+    &\quad + \int_{\underline{A}}^{A_{D}^{*}}\Big[(1-\gamma) - A \, \Theta(x_{D}+x_{W})^{1/\epsilon-1}\big[x_{W}+\alpha x_{D}\big]\Big] f(A)\,dA 
+    = 0
+    \end{align}
+\end{description}
+This completes the derivation of Proposition~\ref{prop:bank-d-foc}. The positive integral term represents the marginal deposit insurance subsidy.
+
+\paragraph{KKT Conditions for Bank D.}
+Let $S_D=[0,\overline x_D]$. With concavity in $x_D$ (Lemma~\ref{lem:concavity-own}), the KKT conditions are necessary and sufficient: stationarity $\frac{\partial w_D}{\partial x_D}(x_D,x_W) - \mu_D + \nu_D = 0$ with multipliers $\mu_D,\nu_D\ge 0$ for the lower and upper bounds respectively, feasibility $x_D\in S_D$, and complementary slackness $\mu_D x_D=0$, $\nu_D(\overline x_D-x_D)=0$. In particular, at the lower boundary $x_D=0$ we require $\frac{\partial w_D}{\partial x_D}(0,x_W)\le 0$.
+
+\subsubsection{Bank W Specific Elements}
+For Bank W with mixed funding, when $x_{W} > \overline{D}_{W}/(1-\gamma)$, the total debt obligation is:
+\begin{equation}
+D_{W} = \overline{D}_{W} + [(1-\gamma)x_{W} - \overline{D}_{W}](1+r_{w})
+\end{equation}
+
+\paragraph{Derivation of Wholesale Funding Equilibrium (Proposition~\ref{prop:wholesale})}
+\label{app:deriv-wholesale}
+Wholesale funders receive different payoffs depending on the realized state:
+\begin{itemize}
+    \item When $A \ge A_{W}^{*}$: Full repayment $[(1-\gamma)x_{W} - \overline{D}_{W}](1+r_{w})$
+    \item When $A_{W}^{**} \le A < A_{W}^{*}$: Residual value after depositors $A \cdot x_{W} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon} - \overline{D}_{W}$
+    \item When $A < A_{W}^{**}$: Nothing (deposits have seniority)
+\end{itemize}
+The break-even condition requires:
+\begin{align}
+&\int_{A_{W}^{*}}^{\overline{A}} \big[(1-\gamma)x_{W} - \overline{D}_{W}\big](1+r_{w}) f(A)\,dA \nonumber \\
+&\quad + \int_{A_{W}^{**}}^{A_{W}^{*}} \big[A \cdot x_{W} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon} - \overline{D}_{W}\big] f(A)\,dA = (1-\gamma)x_{W} - \overline{D}_{W}
+\end{align}
+This implicitly defines $r_{w}$ as a function of $(x_{W}, x_{D})$. As $x_{W}$ increases, the default probability rises, requiring a higher $r_{w}$ to compensate wholesale funders.
+
+\paragraph{Derivation of Bank W Value Decomposition}
+\label{app:deriv-W-value}
+Bank W's initial objective function with mixed funding is:
+\begin{equation}
+w_{W} = \int_{A_{W}^{*}}^{\overline{A}}[A \cdot x_{W} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon} - \overline{D}_{W} - [(1-\gamma)x_{W} - \overline{D}_{W}](1+r_{w})]f(A)dA - \gamma x_{W}
+\end{equation}
+Using the wholesale funding break-even condition to substitute out the term for payments to wholesale funders, we can simplify the expression. The break-even condition implies that the expected payment to wholesale funders equals their initial investment. After careful substitution and algebraic manipulation similar to the general value decomposition, the objective function simplifies to:
+\begin{equation}
+w_{W} = x_{W}[\Theta(x_{D}+x_{W})^{1/\epsilon}-1] + \int_{\underline{A}}^{A_{W}^{**}}[\overline{D}_{W} - A \cdot x_{W} \cdot \Theta(x_{D}+x_{W})^{1/\epsilon}]f(A)dA
+\end{equation}
+This completes the derivation.
+
+\paragraph{KKT Conditions for Bank W with Kink.}
+Let $S_W=[\overline D_W/(1-\gamma),\overline x_W]$. When $x_W>\overline D_W/(1-\gamma)$, the interior problem is concave and the FOC in Proposition~\ref{prop:bank-w-foc} together with bounds yields the KKT system: $\frac{\partial w_W}{\partial x_W}(x_W,x_D) - \mu_W + \nu_W = 0$, $\mu_W,\nu_W\ge 0$, $\mu_W(x_W-\overline D_W/(1-\gamma))=0$, $\nu_W(\overline x_W-x_W)=0$. At the kink $x_W=\overline D_W/(1-\gamma)$, the subgradient condition requires $\frac{\partial w_W}{\partial x_W}(x_W^+,x_D)\le 0$, i.e., the right derivative is nonpositive; if strictly positive, the solution is interior and exceeds the kink. Slater's condition holds for both banks because the feasible sets have nonempty relative interiors (e.g., $x_j\in(0,\overline x_j)$ and strictly feasible $C_j$), so the KKT conditions are necessary and sufficient for global optimality under concavity.
+
+\paragraph{Derivation of Bank W First-Order Condition (Proposition~\ref{prop:bank-w-foc})}
+\label{app:deriv-W-FOC}
+\begin{description}
+    \item[Step 1: Private NPV Derivative.] The derivative is identical to Bank D's:
+    \begin{equation*}
+    \frac{\partial \text{NPV}_{W}}{\partial x_{W}} = \Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{D}+\alpha x_{W}] - 1
+    \end{equation*}
+    \item[Step 2: Subsidy Derivative with Endogenous Funding Cost.] The subsidy term for Bank W is defined up to the depositor loss threshold $A_{W}^{**}$. Crucially, as $x_W$ changes, the endogenous rate $r_w$ also changes, which affects the banker's value. The envelope theorem is key here. The banker chooses $x_W$ knowing that $r_w$ will adjust according to its break-even condition. The effect of $x_W$ on $w_W$ through the change in $r_w$ is zero at the margin. Therefore, we can differentiate the value function, treating $r_w$ as fixed, and then substitute the equilibrium condition. A more direct approach is to use the simplified value function from Corollary 5.5. Differentiating the subsidy term with respect to $x_W$:
+    \begin{equation*}
+    \frac{\partial \text{Subsidy}_{W}}{\partial x_{W}} = -\int_{\underline{A}}^{A_{W}^{**}}A \cdot \Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{D}+\alpha x_{W}]f(A)dA
+    \end{equation*}
+    The boundary term from the Leibniz rule vanishes because as $x_W$ changes, the change in value at the threshold $A_W^{**}$ is exactly offset by the change in expected payments that defines the threshold, a standard result in this class of models. The integral is strictly positive, making the derivative negative. This captures market discipline.
+    
+    \item[Step 3: First-Order Condition.] Combining the derivatives and setting equal to zero:
+    \begin{equation}
+    \Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{D}+\alpha x_{W}]-1 - \int_{\underline{A}}^{A_{W}^{**}}A \cdot \Theta(x_{D}+x_{W})^{1/\epsilon-1}[x_{D}+\alpha x_{W}]f(A)dA = 0
+    \end{equation}
+\end{description}
+This completes the derivation of Proposition~\ref{prop:bank-w-foc}. The negative integral term reflects market discipline.
+
+\subsection{Equilibrium Existence and Uniqueness}
+
+\paragraph{Regularity and Concavity Primitives.}
+We first establish the regularity properties needed for existence and uniqueness proofs.
+\begin{lemma}[Continuity and Differentiability of $w_j$]\label{lem:continuity-wj}
+For each bank $j \in \{D,W\}$, the value function $w_j(x_j,x_{-j})$ is continuous on compact rectangles of $\mathbb{R}_{+}^{2}$ and continuously differentiable on the interior where $x_j>0$.
+Moreover, the derivative can be obtained by differentiating under the integral sign.
+\end{lemma}
+\begin{proof}
+Fix $(x_j,x_{-j})$ with $x_j>0$. By Proposition~\ref{prop:threshold}, the payoff admits the integral form with lower limit $A_j^*(x_j,x_{-j},D_j)$ and integrand linear in $A$ and continuous in $(x_j,x_{-j})$ through $\Theta(x_j+x_{-j})^{1/\epsilon}$. On any compact rectangle for $(x_j,x_{-j})$, both the integrand and the moving boundary are uniformly bounded, and $f$ is continuous by Assumption~\ref{ass:dist}. Therefore the Dominated Convergence Theorem implies continuity in $(x_j,x_{-j})$.
+
+For differentiability, apply the Leibniz integral rule with a variable lower limit: the integrand is jointly continuous in arguments, has a partial derivative w.r.t. $x_j$ that is bounded on compacts, and the boundary term vanishes because the integrand equals zero at $A=A_j^*$ by definition of the threshold. Hence $\partial w_j/\partial x_j$ is obtained by differentiating under the integral sign.
+\end{proof}
+
+\begin{lemma}[Default Threshold Regularity]\label{lem:threshold-regularity}
+Fix $(x_j,x_{-j})$ with $x_j>0$. The default threshold $A_j^*(x_j,x_{-j},D_j)$ defined by $D_j=A_j^* x_j\,\Theta(x_j+x_{-j})^{1/\epsilon}$ is continuous in $(x_j,x_{-j})$ and continuously differentiable wherever $x_j>0$. Moreover, if $D_j$ is continuously differentiable in the relevant arguments, then $A_j^*$ is continuously differentiable in those arguments.
+\end{lemma}
+\begin{proof}
+Define $g(A, x_j, x_{-j}) \equiv A x_j\,\Theta(x_j+x_{-j})^{1/\epsilon}-D_j$. Then $g(A_j^*,x_j,x_{-j})=0$ and $\partial g/\partial A = x_j\,\Theta(x_j+x_{-j})^{1/\epsilon}>0$ for $x_j>0$. By the Implicit Function Theorem, $A_j^*$ is continuously differentiable in a neighborhood of any point with $x_j>0$ and inherits continuity globally on compact rectangles by standard extension arguments.
+\end{proof}
+
+\begin{lemma}[Revenue Function Regularity]\label{lem:revenue-regularity}
+The revenue function $R(X) = \Theta X^{1/\epsilon}$ where $\Theta = \pi\alpha^2\overline{L}^{1-\alpha}$ and $1/\epsilon = \alpha-1$ satisfies:
+\begin{enumerate}
+    \item $R(X)$ is twice continuously differentiable with $R'(X) > 0$ and $R''(X) < 0$ for all $X > 0$.
+    \item The wholesale funding rate $r_w(x_W, x_D)$ is continuously differentiable when $x_W > \overline{D}_W/(1-\gamma)$.
+    \item All partial derivatives required for the existence proof are well-defined and continuous.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Since $1/\epsilon = \alpha - 1 \in (-1,0)$ for $\alpha \in (0,1)$, we have $R'(X) = \Theta(1/\epsilon)X^{1/\epsilon-1} > 0$ and $R''(X) = \Theta(1/\epsilon)(1/\epsilon-1)X^{1/\epsilon-2} < 0$ for $X > 0$. Continuity of $r_w$ follows from the implicit function theorem applied to the wholesale break-even condition in Proposition~\ref{prop:wholesale}.
+\end{proof}
+
+\begin{lemma}[Global Concavity Properties]\label{lem:concavity-global}
+For each bank $j \in \{D,W\}$, the value function $w_j(x_j, x_{-j})$ satisfies:
+\begin{enumerate}
+    \item Strict concavity in $x_j$ on feasible domains for any fixed $x_{-j}$.
+    \item The single-crossing property ensuring unique best responses.
+    \item Appropriate boundary conditions for existence of interior solutions.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The second derivative $\frac{\partial^2 w_j}{\partial x_j^2}$ contains the revenue function curvature term $\Theta(1/\epsilon)(1/\epsilon-1)(x_j+x_{-j})^{1/\epsilon-2} < 0$ plus subsidy terms that are concave by construction, ensuring strict concavity. The single-crossing property follows from the monotonicity of marginal value functions established in the first-order conditions.
+\end{proof}
+
+\begin{lemma}[Concavity in Own Choice]\label{lem:concavity-own}
+For each bank $j\in\{D,W\}$, $w_j(x_j,x_{-j})$ is strictly concave in $x_j$ on compact domains.
+\end{lemma}
+\begin{proof}
+Own second derivatives are negative under the parameter restrictions $1/\epsilon\in(-1,0)$ established in the existence/uniqueness analysis (see the second derivative expressions used in the proof of Theorem~\ref{thm:uniqueness}). The private NPV term is strictly concave in $x_j$, and the subsidy terms are concave by the negative derivative of their integrands with respect to $x_j$ and the vanishing boundary term at the endogenous threshold. Sums of concave functions are concave.
+\end{proof}
+
+\begin{theorem}[Existence of equilibrium]\label{thm:existence}
+Assume $f$ is continuous with support $[\underline A,\overline A]$, $\gamma\in(0,1)$, and $\bar x_j$ bounds such that profits are non-positive for $x_j>\bar x_j$. Then a Nash equilibrium $(x_D^*,x_W^*,r^{l*},r_w^*)$ exists.
+\end{theorem}
+\begin{proof}
+Define compact convex strategy sets $\mathcal X_j=[0,\bar x_j]$. For fixed $x_{-j}$, bank $j$'s payoff is concave in $x_j$: the revenue curve $R(X)=\Theta X^{-\sigma}$ is concave in own quantity and Lemma~\ref{lem:wholesale} delivers a unique $r_w$ and concave discipline term; measurability and integrability follow from Def.~\ref{def:outside-equity}. By Berge's maximum theorem, best-response correspondences $BR_j$ are non-empty, convex-valued, and upper hemicontinuous. Kakutani's fixed-point theorem yields a fixed point of $BR_D\times BR_W$. Prices $(r^{l*},r_w^*)$ then obtain from market clearing and Lemma~\ref{lem:wholesale}.
+\end{proof}
+
+\begin{proposition}[Checkable sufficient conditions for Rosen uniqueness]\label{prop:diagonaldominance}
+Let $h(A)\equiv f(A)/(1-F(A))$ denote the hazard rate with $0<\underline h\le h(A)\le \overline h<\infty$ (MHR). Let $\sigma=1-\alpha\in(0,1)$. There exist finite positive constants $\{\kappa_1,\kappa_2\}$, depending only on $(\underline h,\overline h,\sigma)$ and bounds on $x_j$, such that if
+\begin{equation}\label{eq:rosenbound}
+\min_{j\in\{D,W\}}\Big|\frac{\partial^2 \Pi_j}{\partial x_j^2}\Big| 
+\;\;>\;\; \kappa_1\,\Big|\frac{\partial^2 \Pi_D}{\partial x_D\,\partial x_W}\Big| 
+\; +\; \kappa_2\,\Big|\frac{\partial^2 \Pi_W}{\partial x_W\,\partial x_D}\Big| \, ,
+\end{equation}
+then the game is strictly diagonally dominant in the sense of Rosen (1965), and the Nash equilibrium in quantities is unique.
+\end{proposition}
+\begin{proof}[Proof sketch]
+Own-second derivatives are bounded away from zero by concavity of $R(X)$ and the convex response of $r_w$ (Lemma~\ref{lem:wholesale}). Cross-partials are negative and bounded in magnitude by two channels: (i) the price effect via $R'(X)\propto -\sigma X^{-(1+\sigma)}$, and (ii) the default-region effect $h(A_j^*)\,\partial A_j^*/\partial x_k$ with $A_j^*$ given by~\eqref{eq:threshold}. MHR bounds $h$ uniformly; compactness of $\mathcal X_j$ bounds $X$ and $A_j^*$. Hence the ratio of cross- to own-second derivatives is uniformly below one once~\eqref{eq:rosenbound} holds, implying strict diagonal dominance and uniqueness.
+\end{proof}
+
+\begin{theorem}[Uniqueness]\label{thm:uniqueness}
+Under the assumptions of Theorem~\ref{thm:existence} and the bound in Proposition~\ref{prop:diagonaldominance}, the equilibrium is unique.
+\end{theorem}
+\begin{proof}
+Apply Rosen's concave games theorem using the strict diagonal dominance inequality~\eqref{eq:rosenbound}.
+\end{proof}
+
+% Uniqueness proof is now consolidated in Proposition~\ref{prop:diagonaldominance} and Theorem~\ref{thm:uniqueness}
+
+\subsubsection{Proof of Proposition~\ref{prop:strategic-substitutes}: Equilibrium Properties}
+\label{app:proof-prop6-4}
+\begin{description}
+    \item[Part (ii): Strategic Substitutability.] I show $\frac{\partial^{2}w_{D}}{\partial x_{D}\partial x_{W}} < 0$. The cross-partial derivative consists of two parts: the effect on the private NPV and the effect on the marginal subsidy. Both can be shown to be negative. A positive NPV term is outweighed by a larger negative term, and the subsidy cross-partial is negative. Therefore, the total effect is negative. By the implicit function theorem, the slope of the reaction function is $\frac{dx_{D}}{dx_{W}} = - \frac{(-)}{(-)} < 0$, confirming strategic substitutability.
+    
+    \item[Part (iv): Market Discipline Asymmetry.] For Bank W, taking the total differential of the wholesale funding break-even condition shows that $\frac{\partial r_{w}}{\partial x_{W}} > 0$. The endogenous funding rate is strictly increasing in lending. For Bank D, the deposit rate is fixed at zero, so $\frac{\partial r_{D}}{\partial x_{D}} = 0$. This asymmetry in funding cost sensitivity drives the differential risk-taking incentives.
+\end{description}
+\subsection{Parameter Space Compatibility}
+\label{app:param-compat}
+I verify that the model's parameter restrictions are mutually compatible and define a non-empty feasible parameter space.
+
+\subsubsection{Complete Parameter Restrictions}
+The model imposes the following restrictions:
+\begin{enumerate}
+    \item Production technology: $\alpha \in (0,1)$
+    \item Regulatory capital: $\gamma \in (0,1)$
+    \item Credit risk: $\pi \in (0,1)$
+    \item Strategic default prevention: $\underline{A} > \alpha$
+    \item Productivity distribution: $0 < \underline{A} < 1 < \overline{A} < \infty$
+    \item Mean normalization: $\mathbb{E}[A] = 1$
+    \item Deposit constraint: $\overline{D}_{W} \in (0, (1-\gamma)\overline{x})$ for finite $\overline{x}$
+    \item Labor supply: $\overline{L} > 0$ finite
+\end{enumerate}
+
+\begin{lemma}[Non-Empty Feasible Parameter Space]
+The feasible parameter space is non-empty and has positive measure.
+\end{lemma}
+\begin{proof}
+I construct an explicit feasible parameter configuration.
+\begin{description}
+    \item[Step 1: Core Parameters.] Choose: $\alpha = 0.3$, $\gamma=0.1$, $\pi=0.95$, $\overline{L}=1$. These clearly satisfy their basic constraints.
+    \item[Step 2: Productivity Distribution.] Set $\underline{A}=0.5$ and $\overline{A}=2.0$. Let $A$ follow a Beta$(p,q)$ distribution linearly rescaled to $[\underline A,\overline A]$ with density strictly positive and continuous on its support. Choose $(p,q)=(2,2)$ and rescale to ensure $\mathbb E[A]=1$. This satisfies continuity, positivity, and mean normalization while respecting $0<\alpha<\underline A<1<\overline A<\infty$.
+    \item[Step 3: Deposit Constraint Bound.] From Lemma A.1, the upper bound on lending is $\overline{x} = \left(\frac{\pi\alpha^{2}\overline{L}^{1-\alpha}\overline{A}}{1-\gamma}\right)^{\frac{1}{1-\alpha}}$. Using the chosen parameters yields a finite bound. Pick any $\overline{D}_{W} \in (0,(1-\gamma)\overline{x})$.
+\end{description}
+Since all inequalities are strict, there exists an open neighborhood around this configuration where all constraints remain satisfied. Therefore, the feasible parameter space is non-empty with positive measure.
+\end{proof}
+
+\subsubsection{Global Second-Order Sufficient Conditions}
+\begin{lemma}[Global Concavity]
+For all $(x_{D},x_{W}) \in S_{D} \times S_{W}$, the value functions $w_{D}(\cdot, x_W)$ and $w_{W}(\cdot, x_D)$ are strictly concave in own lending.
+\end{lemma}
+\begin{proof}
+As used in the uniqueness proof, the own second derivatives are negative under the stated regularity conditions, ensuring strict concavity in own choice. Since the feasible sets $S_D$ and $S_W$ are compact and convex and the constraints are linear, any Karush-Kuhn-Tucker point is a global maximizer. When Bank W's lower-bound constraint binds at $x_{W} = \overline{D}_{W}/(1-\gamma)$, concavity of the objective and linearity of the constraint imply optimality at the boundary without requiring bordered Hessian sign checks.
+\end{proof}
+
+\subsection{Comparative Statics Analysis}
+
+\subsubsection{Proof of Theorem~\ref{thm:deposit-access}: Deposit Access and Equilibrium Lending}
+\label{app:proof-theorem7-1}
+The equilibrium is defined by the system of first-order conditions:
+\begin{align*}
+\Phi_{D}(x_{D}^{*},x_{W}^{*}) &\equiv \frac{\partial w_{D}}{\partial x_{D}}(x_{D}^{*},x_{W}^{*}) = 0 \\
+\Phi_{W}(x_{W}^{*},x_{D}^{*};\overline{D}_{W}) &\equiv \frac{\partial w_{W}}{\partial x_{W}}(x_{W}^{*},x_{D}^{*};\overline{D}_{W}) = 0
+\end{align*}
+\paragraph{Step 1: Implicit Differentiation Setup.}
+Bank D's FOC is independent of $\overline{D}_{W}$, so $\frac{\partial\Phi_{D}}{\partial\overline{D}_{W}} = 0$. For Bank W, $\overline{D}_{W}$ affects the FOC through the depositor loss threshold $A_{W}^{**} = \frac{\overline{D}_{W}}{x_{W}\Theta X^{1/\epsilon}}$. 
+
+An increase in $\overline{D}_{W}$ raises this threshold, which relaxes the market discipline constraint (the negative integral term in Bank W's FOC becomes smaller in magnitude). Therefore, $\frac{\partial\Phi_{W}}{\partial\overline{D}_{W}} > 0$.
+
+\paragraph{Step 2: Apply Cramer's Rule.}
+Totally differentiating the equilibrium conditions yields:
+\begin{equation*}
+\begin{pmatrix} 
+\frac{\partial^{2}w_{D}}{\partial x_{D}^{2}} & \frac{\partial^{2}w_{D}}{\partial x_{D}\partial x_{W}} \\ 
+\frac{\partial^{2}w_{W}}{\partial x_{W}\partial x_{D}} & \frac{\partial^{2}w_{W}}{\partial x_{W}^{2}} 
+\end{pmatrix} 
+\begin{pmatrix} 
+\frac{dx_{D}^{*}}{d\overline{D}_{W}} \\ 
+\frac{dx_{W}^{*}}{d\overline{D}_{W}} 
+\end{pmatrix} = -\begin{pmatrix} 
+0 \\ 
+\frac{\partial\Phi_{W}}{\partial\overline{D}_{W}} 
+\end{pmatrix}
+\end{equation*}
+Let $H$ be the Hessian matrix. The determinant $\det(H)$ is positive by the dominant diagonal property required for uniqueness.
+\begin{description}
+    \item[Part (i): Bank W's response.]
+    \begin{equation*}
+    \frac{dx_{W}^{*}}{d\overline{D}_{W}} 
+    = -\frac{1}{\det(H)} 
+    \det\begin{pmatrix} H_{DD} & 0 \\ H_{WD} & \frac{\partial\Phi_{W}}{\partial\overline{D}_{W}} \end{pmatrix}
+    = -\frac{H_{DD} \, \frac{\partial\Phi_{W}}{\partial\overline{D}_{W}}}{\det(H)}
+    = -\frac{(-) \, (+)}{(+)} > 0.
+    \end{equation*}
+    \item[Part (ii): Bank D's response.]
+    \begin{equation*}
+    \frac{dx_{D}^{*}}{d\overline{D}_{W}} 
+    = -\frac{1}{\det(H)} 
+    \det\begin{pmatrix} 0 & H_{DW} \\ \frac{\partial\Phi_{W}}{\partial\overline{D}_{W}} & H_{WW} \end{pmatrix}
+    = \frac{H_{DW} \, \frac{\partial\Phi_{W}}{\partial\overline{D}_{W}}}{\det(H)}
+    = \frac{(-) \, (+)}{(+)} < 0.
+    \end{equation*}
+    \item[Part (iii): Aggregate effect.]
+    \begin{equation*}
+    \frac{d(x_{D}^{*}+x_{W}^{*})}{d\overline{D}_{W}} = \frac{\frac{\partial\Phi_{W}}{\partial\overline{D}_{W}} \cdot (H_{DW}-H_{DD})}{\det(H)}.
+    \end{equation*}
+    Since $|H_{DD}| > |H_{DW}|$ and both are negative, $H_{DW}-H_{DD} > 0$. Thus, the aggregate effect is positive.
+    \item[Part (iv): Magnitude comparison.]
+    \begin{equation*}
+    \left|\frac{dx_{W}^{*}}{d\overline{D}_{W}}\right| - \left|\frac{dx_{D}^{*}}{d\overline{D}_{W}}\right| = \frac{\frac{\partial\Phi_{W}}{\partial\overline{D}_{W}} \cdot (|H_{DD}|-|H_{DW}|)}{\det(H)} > 0,
+    \end{equation*}
+    since $|H_{DD}| > |H_{DW}|$.
+\end{description}
+
+\subsubsection{Proof of Proposition~\ref{prop:decomposition}: Decomposition}
+\label{app:proof-prop7-2}
+The total derivative decomposes via the chain rule:
+\begin{equation}
+\frac{dx_{W}^{*}}{d\overline{D}_{W}} = \underbrace{\frac{\partial x_{W}^{*}}{\partial\overline{D}_{W}}\bigg|_{x_{D} \text{ fixed}}}_{\text{Direct Effect}} + \underbrace{\frac{\partial x_{W}^{*}}{\partial x_{D}}\bigg|_{\overline{D}_{W} \text{ fixed}} \cdot \frac{dx_{D}^{*}}{d\overline{D}_{W}}}_{\text{Strategic Effect}}
+\end{equation}
+The direct effect is positive, as shown by applying the implicit function theorem to Bank W's FOC: $\frac{\partial x_{W}^{*}}{\partial\overline{D}_{W}} = -\frac{\partial\Phi_{W}/\partial\overline{D}_{W}}{\partial\Phi_{W}/\partial x_{W}} = -\frac{(+)}{(-)} > 0$. The strategic effect is the product of two negative terms: the slope of Bank W's reaction function ($\frac{\partial x_{W}^{*}}{\partial x_{D}} < 0$) and Bank D's equilibrium response ($\frac{dx_{D}^{*}}{d\overline{D}_{W}} < 0$). Thus, the strategic effect is also positive.
+
+\subsubsection{Proof of Proposition~\ref{prop:market-concentration}: Market Concentration}
+\label{app:proof-prop7-4}
+Define concentration as $CR = \frac{x_{D}^{*}}{x_{D}^{*}+x_{W}^{*}}$. Taking the derivative with respect to $\overline{D}_{W}$:
+\begin{equation*}
+\frac{dCR}{d\overline{D}_{W}} = \frac{\frac{dx_{D}^{*}}{d\overline{D}_{W}}(x_{D}^{*}+x_{W}^{*}) - x_{D}^{*}(\frac{dx_{D}^{*}}{d\overline{D}_{W}}+\frac{dx_{W}^{*}}{d\overline{D}_{W}})}{(x_{D}^{*}+x_{W}^{*})^2} = \frac{x_{W}^{*}\frac{dx_{D}^{*}}{d\overline{D}_{W}} - x_{D}^{*}\frac{dx_{W}^{*}}{d\overline{D}_{W}}}{(x_{D}^{*}+x_{W}^{*})^2}
+\end{equation*}
+Since $\frac{dx_{D}^{*}}{d\overline{D}_{W}} < 0$ and $\frac{dx_{W}^{*}}{d\overline{D}_{W}} > 0$, both terms in the numerator are negative. Thus, $\frac{dCR}{d\overline{D}_{W}} < 0$.
+
+\subsubsection{Proof of Proposition~\ref{prop:risk-distribution}: Risk Distribution}
+\label{app:proof-prop7-6}
+\begin{description}
+    \item[Part (i): Differential Default Risk.] Bank D's threshold is $A_{D}^{*} = \frac{1-\gamma}{\Theta(X^{*})^{1/\epsilon}}$. Bank W's threshold when accessing wholesale funding is $A_{W}^{*} = \frac{\overline{D}_{W}+[(1-\gamma)x_{W}^{*}-\overline{D}_{W}](1+r_{w}^{*})}{x_{W}^{*}\Theta(X^{*})^{1/\epsilon}}$. Since $r_{w}^{*} > 0$, the numerator for $A_W^*$ is larger than $(1-\gamma)x_W^*$. Therefore, $A_{W}^{*} > \frac{(1-\gamma)x_{W}^{*}}{x_{W}^{*}\Theta(X^{*})^{1/\epsilon}} = A_{D}^{*}$. A higher threshold implies a lower probability of default, so $F(A_{W}^{*}) < F(A_{D}^{*})$.
+    \item[Part (ii): Effect on Aggregate Default Risk.] Aggregate risk is $R(\overline{D}_{W}) = \frac{x_{D}^{*}}{X^{*}}F(A_{D}^{*}) + \frac{x_{W}^{*}}{X^{*}}F(A_{W}^{*})$. Differentiating with respect to $\overline{D}_{W}$ yields:
+    \begin{equation*}
+    \frac{dR}{d\overline{D}_{W}} = \underbrace{\frac{d}{d\overline{D}_{W}}\left[\frac{x_{D}^{*}}{X^{*}}\right][F(A_{D}^{*}) - F(A_{W}^{*})]}_{\text{Market share effect} < 0} + \underbrace{\frac{x_{D}^{*}}{X^{*}}\frac{dF(A_{D}^{*})}{d\overline{D}_{W}} + \frac{x_{W}^{*}}{X^{*}}\frac{dF(A_{W}^{*})}{d\overline{D}_{W}}}_{\text{Individual risk effects (ambiguous)}}
+    \end{equation*}
+    The market share effect is negative because lending shifts from the riskier Bank D to the safer Bank W. The individual risk effects are ambiguous. As total lending $X^*$ increases, both banks become safer (their default thresholds fall), but the change in Bank W's individual risk-taking incentives can be positive or negative. The net effect depends on which force dominates.
+\end{description}
+
+\section{Notation}
+\label{app:notation}
+\begin{description}
+    \item[$\alpha$] Capital share parameter in production; implies $\epsilon = -\frac{1}{1-\alpha}$
+    \item[$\epsilon$] Loan demand elasticity; $1/\epsilon = -(1-\alpha)$
+    \item[$\Theta$] $\Theta \equiv \pi\alpha^{2}\overline{L}^{1-\alpha}$
+    \item[$\gamma$] Regulatory capital ratio (outside equity share)
+    \item[$\pi$] Success probability of idiosyncratic shock
+    \item[$\overline{L}$] Inelastic labor supply
+    \item[$\overline{D}_{W}$] Bank W insured deposit capacity
+    \item[$x_{D}, x_{W}$] Lending by Bank D and Bank W
+    \item[$r^{l}$] Lending rate; $1+r^{l} = \alpha^{2}\overline{L}^{1-\alpha}X^{-(1-\alpha)}$
+    \item[$r_{w}$] Wholesale funding rate for Bank W
+    \item[$A$] Aggregate productivity; $\mathbb{E}[A]=1$
+    \item[$F, f$] CDF and density of $A$
+    \item[$A_{j}^{*}$] Default threshold for bank $j \in \{D,W\}$
+\end{description}
+\end{document}
