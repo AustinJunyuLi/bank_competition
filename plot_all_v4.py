@@ -26,6 +26,15 @@ plt.rcParams.update({
     'ytick.minor.width': 0.6,
     'legend.frameon': False,
     'legend.fontsize': 10,
+    'legend.fancybox': False,
+    'legend.shadow': False,
+    'legend.numpoints': 1,
+    'legend.scatterpoints': 1,
+    'legend.markerscale': 1.0,
+    'legend.columnspacing': 2.0,
+    'legend.handlelength': 2.0,
+    'legend.handletextpad': 0.8,
+    'legend.borderaxespad': 0.5,
     'figure.dpi': 300,
     'savefig.dpi': 300,
     'savefig.bbox': 'tight',
@@ -91,7 +100,7 @@ def add_regime_shading(ax, data: pd.DataFrame, x_col: str, alpha: float = 0.15):
 def plot_dw_sweep_variable(data: pd.DataFrame, y_col: str, ylabel: str, 
                           filename: str, title: str = None):
     """Plot a single variable from DW sweep with regime shading."""
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(9, 5.5))  # Slightly larger to accommodate legend
     
     # Add regime shading
     add_regime_shading(ax, data, 'D_W', alpha=0.1)
@@ -120,20 +129,24 @@ def plot_dw_sweep_variable(data: pd.DataFrame, y_col: str, ylabel: str,
         legend_elements.insert(0, plt.Line2D([0], [0], color=COLORS['line'], 
                                            linewidth=2.5, label='Model Solution'))
         
-        ax.legend(handles=legend_elements, loc='upper right', frameon=False, 
-                 fontsize=10, ncol=1)
+        # Position legend outside the plot area to avoid overlap
+        ax.legend(handles=legend_elements, bbox_to_anchor=(1.05, 1), loc='upper left',
+                 frameon=False, fontsize=10, ncol=1)
     else:
-        ax.legend(loc='upper right', frameon=False, fontsize=10)
+        ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', frameon=False, fontsize=10)
+    
+    # Adjust layout to prevent clipping of legend
+    plt.tight_layout()
     
     # Save both PNG and PDF
-    plt.savefig(os.path.join(OUT, f"{filename}.png"))
-    plt.savefig(os.path.join(OUT, f"{filename}.pdf"))
+    plt.savefig(os.path.join(OUT, f"{filename}.png"), bbox_inches='tight')
+    plt.savefig(os.path.join(OUT, f"{filename}.pdf"), bbox_inches='tight')
     plt.close()
 
 def plot_tau_sweep_variable(data_dict: Dict[str, pd.DataFrame], y_col: str, 
                            ylabel: str, filename: str, title: str = None):
     """Plot tau sweep for multiple DW values."""
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(9, 5.5))  # Larger to accommodate legend
     
     # Use consistent colors and linestyles for each regime
     regime_styles = {
@@ -155,22 +168,20 @@ def plot_tau_sweep_variable(data_dict: Dict[str, pd.DataFrame], y_col: str,
     
     setup_axis(ax, r'Deposit Insurance Premium $\tau$', ylabel, title)
     
-    # Position legend to avoid overlap
-    if 'r_w' in y_col or 'Rate' in ylabel:
-        legend_loc = 'upper right'
-    else:
-        legend_loc = 'best'
+    # Position legend outside plot area to avoid overlap
+    ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', frameon=False, fontsize=10)
     
-    ax.legend(loc=legend_loc, frameon=False, fontsize=10)
+    # Adjust layout to prevent clipping
+    plt.tight_layout()
     
     # Save both PNG and PDF
-    plt.savefig(os.path.join(OUT, f"{filename}.png"))
-    plt.savefig(os.path.join(OUT, f"{filename}.pdf"))
+    plt.savefig(os.path.join(OUT, f"{filename}.png"), bbox_inches='tight')
+    plt.savefig(os.path.join(OUT, f"{filename}.pdf"), bbox_inches='tight')
     plt.close()
 
 def plot_combined_thresholds_dw(data: pd.DataFrame):
     """Plot A_D_star and A_W_star together for DW sweep."""
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(9, 5.5))  # Larger to accommodate legend
     
     # Add regime shading
     add_regime_shading(ax, data, 'D_W', alpha=0.1)
@@ -214,12 +225,16 @@ def plot_combined_thresholds_dw(data: pd.DataFrame):
     all_handles = threshold_handles + regime_handles
     all_labels = threshold_labels + [h.get_label() for h in regime_handles]
     
-    ax.legend(handles=all_handles, labels=all_labels, loc='upper left', 
-             frameon=False, fontsize=10, ncol=1)
+    # Position legend outside plot area to avoid overlap
+    ax.legend(handles=all_handles, labels=all_labels, bbox_to_anchor=(1.05, 1), 
+             loc='upper left', frameon=False, fontsize=10, ncol=1)
+    
+    # Adjust layout to prevent clipping
+    plt.tight_layout()
     
     # Save both PNG and PDF
-    plt.savefig(os.path.join(OUT, "DW_AWss.png"))
-    plt.savefig(os.path.join(OUT, "DW_AWss.pdf"))
+    plt.savefig(os.path.join(OUT, "DW_AWss.png"), bbox_inches='tight')
+    plt.savefig(os.path.join(OUT, "DW_AWss.pdf"), bbox_inches='tight')
     plt.close()
 
 def main():
@@ -269,7 +284,7 @@ def main():
     dw_data['CR_D'] = 1 - dw_data['x_D']  # Simplified capital ratio for deposit bank
     dw_data['CR_W'] = 1 - dw_data['x_W']  # Simplified capital ratio for wholesale bank
     
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(9, 5.5))  # Larger to accommodate legend
     add_regime_shading(ax, dw_data, 'D_W', alpha=0.1)
     ax.plot(dw_data['D_W'], dw_data['CR_D'], 
            color=COLORS['line'], linewidth=2.5, label='Deposit Bank', zorder=10)
@@ -296,11 +311,15 @@ def main():
     all_handles = bank_handles + regime_handles
     all_labels = bank_labels + [h.get_label() for h in regime_handles]
     
-    ax.legend(handles=all_handles, labels=all_labels, loc='upper right', 
-             frameon=False, fontsize=10, ncol=1)
+    # Position legend outside plot area to avoid overlap
+    ax.legend(handles=all_handles, labels=all_labels, bbox_to_anchor=(1.05, 1), 
+             loc='upper left', frameon=False, fontsize=10, ncol=1)
     
-    plt.savefig(os.path.join(OUT, "DW_CR_regimes.png"))
-    plt.savefig(os.path.join(OUT, "DW_CR_regimes.pdf"))
+    # Adjust layout to prevent clipping
+    plt.tight_layout()
+    
+    plt.savefig(os.path.join(OUT, "DW_CR_regimes.png"), bbox_inches='tight')
+    plt.savefig(os.path.join(OUT, "DW_CR_regimes.pdf"), bbox_inches='tight')
     plt.close()
     
     # Combined thresholds plot
@@ -331,32 +350,54 @@ def main():
         data_key = [k for k in tau_data.keys() if str(dw_val) in k][0]
         data = tau_data[data_key]
         
+        # Get regime color for consistency
+        regime_color = COLORS.get(label_suffix, COLORS['line'])
+        regime_name = label_suffix.title() + ' Regime'
+        
         # Individual plots for each variable
         for var, ylabel in [('x_D', r'Deposit Bank Lending $x_D$'),
                            ('x_W', r'Wholesale Bank Lending $x_W$'),
                            ('X', r'Total Lending $X$'),
                            ('r_w', r'Wholesale Rate $r_w$')]:
-            fig, ax = plt.subplots(figsize=(8, 5))
+            fig, ax = plt.subplots(figsize=(9, 5.5))  # Larger to accommodate legend
             ax.plot(data['tau'], data[var], 
-                   color=COLORS['line'], linewidth=2.5, zorder=10)
-            setup_axis(ax, r'Deposit Insurance Premium $\tau$', ylabel)
-            plt.savefig(os.path.join(OUT, f"tau_DW={dw_val} ({label_suffix})_{var}.png"))
-            plt.savefig(os.path.join(OUT, f"tau_DW={dw_val} ({label_suffix})_{var}.pdf"))
+                   color=regime_color, linewidth=2.5, 
+                   label=f'{regime_name} (DW = {dw_val})', zorder=10)
+            
+            title = f'{ylabel.split("$")[1].split("$")[0]} vs Premium - {regime_name}'
+            setup_axis(ax, r'Deposit Insurance Premium $\tau$', ylabel, title)
+            
+            # Position legend outside plot area
+            ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', frameon=False, fontsize=10)
+            
+            # Adjust layout to prevent clipping
+            plt.tight_layout()
+            
+            plt.savefig(os.path.join(OUT, f"tau_DW={dw_val} ({label_suffix})_{var}.png"), bbox_inches='tight')
+            plt.savefig(os.path.join(OUT, f"tau_DW={dw_val} ({label_suffix})_{var}.pdf"), bbox_inches='tight')
             plt.close()
         
         # Capital ratio plot for each DW value
         data['CR_D'] = 1 - data['x_D']
         data['CR_W'] = 1 - data['x_W']
-        fig, ax = plt.subplots(figsize=(8, 5))
+        fig, ax = plt.subplots(figsize=(9, 5.5))  # Larger to accommodate legend
         ax.plot(data['tau'], data['CR_D'], 
                color=COLORS['line'], linewidth=2.5, label='Deposit Bank', zorder=10)
         ax.plot(data['tau'], data['CR_W'], 
                color=COLORS['accent'], linewidth=2.5, 
                linestyle='--', label='Wholesale Bank', zorder=10)
-        setup_axis(ax, r'Deposit Insurance Premium $\tau$', 'Capital Ratio')
-        ax.legend(loc='best', frameon=False)
-        plt.savefig(os.path.join(OUT, f"tau_DW={dw_val} ({label_suffix})_CR.png"))
-        plt.savefig(os.path.join(OUT, f"tau_DW={dw_val} ({label_suffix})_CR.pdf"))
+        
+        title = f'Capital Ratios vs Premium - {regime_name}'
+        setup_axis(ax, r'Deposit Insurance Premium $\tau$', 'Capital Ratio', title)
+        
+        # Position legend outside plot area
+        ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', frameon=False, fontsize=10)
+        
+        # Adjust layout to prevent clipping
+        plt.tight_layout()
+        
+        plt.savefig(os.path.join(OUT, f"tau_DW={dw_val} ({label_suffix})_CR.png"), bbox_inches='tight')
+        plt.savefig(os.path.join(OUT, f"tau_DW={dw_val} ({label_suffix})_CR.pdf"), bbox_inches='tight')
         plt.close()
     
     print(f"All plots generated successfully in {OUT}")
