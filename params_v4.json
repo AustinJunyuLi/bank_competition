@@ -1,0 +1,17 @@
+{
+  "alpha": 0.3,
+  "pi": 0.95,
+  "L": 33.555421094513044,
+  "gamma": 0.1,
+  "tau": 0.003,
+  "D_W": 0.45,
+  "A_low": 0.5,
+  "A_high": 1.5,
+  "tol": 1e-10,
+  "max_iter": 250,
+  "ls_shrink": 0.5,
+  "ls_min": 1e-07,
+  "ridge": 2e-08,
+  "fd_eps": 1e-06,
+  "cap_deadband": 1e-10
+}
